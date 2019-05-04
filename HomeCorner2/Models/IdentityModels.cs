@@ -20,14 +20,54 @@ namespace HomeCorner2.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        const string connectionString = @"Data Source=DESKTOP-G20562D;Initial Catalog=HomeCorner;Integrated Security=True";
+
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base(connectionString, throwIfV1Schema: false)
         {
         }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        /// <summary>
+        /// Collection managing housies
+        /// </summary>
+        public DbSet<House> Houses { get; set; }
+
+        /// <summary>
+        /// Collection managing customers
+        /// </summary>
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<Features> Features { get; set; }
+
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<Images> Images { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            // configures one-to-many relationship
+            modelBuilder.Entity<House>()
+                .HasRequired<Customer>(s => s.Owner)
+                .WithMany(g => g.Houses)
+                .HasForeignKey<int>(s => s.OwnerId)
+                .WillCascadeOnDelete();
+
+            modelBuilder.Entity<House>()
+                .HasRequired<Region>(s => s.Region)
+                .WithMany(g => g.Houses)
+                .HasForeignKey<byte>(s => s.RegionId)
+                .WillCascadeOnDelete();
+
+            modelBuilder.Entity<Images>()
+                .HasRequired<House>(s => s.House)
+                .WithMany(g => g.Images)
+                .HasForeignKey<int>(s => s.HouseId)
+                .WillCascadeOnDelete();
         }
     }
 }

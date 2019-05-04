@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Contact Us";
+}
+@*<h3>@ViewBag.Message</h3>*@
+
+<div class="row mb-5 mt-5">
+    <div class="col-lg-6">
+        <h2>@ViewBag.Title</h2>
+        <h5>Feel free to contact us for any business, media, or personal inquiries:</h5>
+        <div class="container">
+            <div class="row">
+                <div class="col-4 mt-4">
+                    <div>Address</div>
+                    <div class="mb-4">Hours</div>
+                    <div>Contacts</div>
+                </div>
+                <div class="col-8 mt-4">
+                    <div>Thessaloniki, Greece</div>
+                    <div>Monday - Saturday: 11 AM - 9 PM<br />Sunday: 11 AM - 7 PM</div>
+                    <div>+30 1234567890<br />homecornerteam@mail.com</div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3 mb-3">
+            <div id="googleMap" style="width:100%;height:400px;"></div>
+        </div>
+    </div>
+    <div class="col-lg-6 mt-5">
+        @using (Html.BeginForm("Email", "Home", FormMethod.Post))
+        {
+            <div class="contactus-form center-div">
+                <form method="POST" action="Email">
+                    <div class="form-group">
+                        <label for="UserFullName">Full Name</label>
+                        <input type="text" class="form-control" id="UserFullName" name="user-full-name" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="UserEmail">E-mail address</label>
+                        <input type="email" class="form-control" id="UserEmail" name="user-email" placeholder="Enter your e-mail">
+                    </div>
+                    <div class="form-group">
+                        <label for="UserPhone">Phone number</label>
+                        <input type="tel" class="form-control" id="UserPhone" name="user-phone" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="UserMessageSubject">Subject</label>
+                        <input type="text" class="form-control" id="UserMessageSubject" name="user-message-subject" placeholder="Type the message subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="UserMessage">Message</label>
+                        <textarea class="form-control" id="UserMessage" name="user-message" placeholder="Type your message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" onclick="this.form.submit();">Send</button>
+                </form>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    function initMap() {
+        var homeCornerLatLng = { lat: 40.6374681, lng: 22.9346953 };
+        var map = new google.maps.Map(document.getElementById('googleMap'), {
+            zoom: 6,
+            center: homeCornerLatLng
+        });
+        var marker = new google.maps.Marker({
+            position: homeCornerLatLng,
+            map: map,
+            title: 'Home Corner Offices'
+        });
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAi66Zr1c2Jqe-6NEqunYSDfF0DkJaC0_o&callback=initMap"></script>

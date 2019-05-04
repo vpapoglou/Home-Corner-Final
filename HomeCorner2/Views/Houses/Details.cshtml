@@ -1,0 +1,51 @@
+﻿@model HomeCorner2.ViewModels.HousesViewModel
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Details</h2>
+
+<div>
+    <h4>House</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        @Html.Partial("_HousesDataTable", Model.House)
+
+        <dt>
+            @Html.DisplayNameFor(model => model.House.Region.RegionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.House.Region.RegionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllFeatures)
+        </dt>
+
+        @if (Model.SelectedFeatures == null)
+        {
+            <dd>No Features</dd>
+        }
+        else
+        {
+
+            foreach (var feature in Model.House.Features)
+            {
+                <dd>
+                    @Html.DisplayFor(model => feature.Feature)
+                </dd>
+            }
+        }
+        <dt>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.House.Id }) |
+            @Html.ActionLink("Back to List", "Index")
+
+        </dt>
+    </dl>
+</div>
