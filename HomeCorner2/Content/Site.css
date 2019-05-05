@@ -1,6 +1,7 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    /*padding-top: 50px;
+    padding-bottom: 20px;*/
+    font-family: 'Quicksand', sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,37 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+#main-body {
+    padding-top: unset;
+    padding-bottom: unset;
+}
+
+.fa-facebook-square, .fa-twitter-square, .fa-linkedin, .fa-github-square {
+    font-size: 1.5rem;
+}
+
+.card {
+    width: 18rem;
+}
+
+.center-div {
+    margin: 0 auto;
+    width: 70% /* value of your choice which suits your alignment */
+}
+
+.contactus-form {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+
+#greetings-home-message {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 2rem;
+}
+
+.home-cards {
+    width: 10rem;
 }

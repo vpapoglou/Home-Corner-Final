@@ -18,14 +18,14 @@ namespace HomeCorner2.Controllers
             return View(latestHouses);
         }
 
-        public ActionResult About()
+        public ActionResult AboutUs()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult ContactUs()
         {
             ViewBag.Message = "Your contact page.";
 
