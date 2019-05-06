@@ -178,7 +178,7 @@ namespace HomeCorner2.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Home", "Home");
                 }
                 AddErrors(result);
             }
@@ -371,7 +371,7 @@ namespace HomeCorner2.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Manage");
+                return RedirectToAction("Home", "Manage");
             }
 
             if (ModelState.IsValid)
@@ -464,7 +464,7 @@ namespace HomeCorner2.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Home", "Home");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

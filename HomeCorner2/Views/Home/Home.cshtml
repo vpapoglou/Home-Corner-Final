@@ -1,0 +1,77 @@
+﻿@model IEnumerable<HomeCorner2.Models.House>
+
+@{
+
+    ViewBag.Title = "Home Page";
+
+    var greetings = "";
+    DateTime dayTime = DateTime.Now;
+    DateTime noonTime = DateTime.Parse("12:00");
+
+    if (DateTime.Compare(dayTime, noonTime) >= 0)
+    {
+        greetings = "Good Evening!";
+    }
+    else
+    {
+        greetings = "Good Morning!";
+
+    }
+
+    Random rnd = new Random();
+    int randomText = rnd.Next(0, 3);
+
+    string[] welcomeText = {
+"Grab your dreams and let's explore the northern Greece!",
+"It's time for a new adveture in northern Greece!",
+"Are you ready to explore your next destination? Let's start looking for a place for you to stay!"
+};
+}
+
+<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+<div class="jumbotron mt-4">
+    <div id="greetings-home-message">
+        @greetings
+        <p>
+            @welcomeText[randomText]
+        </p>
+    </div>
+</div>
+
+<div>
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-2 col-12">
+                <div class="card home-cards">
+                    <div class="card-avatar">
+                        <img class="card-img-top" src="..\HouseImages\@item.ImageName" alt="Card image cap">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Price)€</p>
+                        <input type="button" class="btn btn-dark" value="Book Now!" onclick="redirectToDetails(@item.Id);" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            @Html.ActionLink("Book Now!", "Search", "Home", new { area = "" }, new {InputType = "button", @class = "btn btn-block btn-dark" })
+            @*<input type="button" class="btn btn-block btn-dark" value="Book Now!" onclick="@Html.ActionLink("AboutUs", "Home")" />*@
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+</div>
+
+<script>
+    function redirectToDetails(houseId) {
+        document.location = '../Houses/Details/' + houseId;
+    }
+</script>

@@ -1,9 +1,13 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    ViewBag.Title = "_LoggedInLayout";
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -17,23 +21,16 @@
 <body id="main-body">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            @Html.ActionLink("HomeCorner", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("HomeCorner", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav mr-auto">
-                    @*<li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Profile", "Profile", "Home", null, new { @class = "nav-link" })</li>*@
-                    <li>@Html.ActionLink("Search", "Search", "Home", null, new { @class = "btn text-primary" })</li>
                     <li>@Html.ActionLink("About Us", "AboutUs", "Home", null, new { @class = "btn text-primary" })</li>
                     <li>@Html.ActionLink("Contact Us", "ContactUs", "Home", null, new { @class = "btn text-primary" })</li>
                 </ul>
-                @*@Html.Partial("_LoginPartial")*@
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-                </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>
@@ -44,7 +41,7 @@
             <div class="row">
                 <div class="col-lg-4 col-sm-8">
                     <div>
-                        @Html.ActionLink("HomeCorner", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        @Html.ActionLink("HomeCorner", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
                     </div>
                     <div class="text-center">
                         Our team will go the extra mile to analyze the particular project in detail, and offer a business solution that will meet your requirements.
@@ -53,11 +50,24 @@
                 </div>
                 <div class="col-lg-4 col-sm-8">
                     <div class="row">
-                        <ul class="list-group list-group-flush list-unstyled">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About Us", "AboutUs", "Home")</li>
-                            <li>@Html.ActionLink("Contact Us", "ContactUs", "Home")</li>
-                        </ul>
+                        <div class="col-lg-4">
+                            <ul class="list-group list-group-flush list-unstyled">
+                                <li>@Html.ActionLink("Home", "Home", "Home")</li>
+                                <li>@Html.ActionLink("Profile", "Profile", "Home")</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4">
+                            <ul class="list-group list-group-flush list-unstyled">
+                                <li>@Html.ActionLink("Search", "Search", "Home")</li>
+                                <li>@Html.ActionLink("About Us", "AboutUs", "Home")</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4">
+                            <ul class="list-group list-group-flush list-unstyled">
+                                <li>@Html.ActionLink("Contact Us", "ContactUs", "Home")</li>
+                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-8 text-md-right text-lg-right">
