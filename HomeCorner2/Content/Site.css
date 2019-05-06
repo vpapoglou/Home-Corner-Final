@@ -56,3 +56,8 @@ textarea {
 .home-cards {
     width: 10rem;
 }
+
+.image-details {
+    width: 70%;
+    height: 70%;
+}

@@ -1,51 +1,55 @@
 ﻿@model HomeCorner2.ViewModels.HousesViewModel
 
-
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_LoggedInLayout.cshtml";
 }
 
 
-<h2>Details</h2>
+<div class="row mt-5">
+    <div class="col-lg-8">
+        <img class="rounded image-details" src="..\..\HouseImages\@Model.House.ImageName" alt="@Model.House.Title" />
+    </div>
+    <div class="col-lg-4">
+        <h4>@Html.DisplayFor(model => model.House.Title)</h4>
+        <hr />
+        <dl class="dl-horizontal">
 
-<div>
-    <h4>House</h4>
-    <hr />
-    <dl class="dl-horizontal">
+            @*@Html.Partial("_HousesDataTable", Model.House)*@
 
-        @*@Html.Partial("_HousesDataTable", Model.House)*@
+            <dt>
+                Adress
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.House.Region.RegionName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.House.Region.RegionName), @Html.DisplayFor(model => model.House.PostalCode)
+                <br />
+                @Html.DisplayFor(model => model.House.Address) @Html.DisplayFor(model => model.House.AddressNumber),
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.House.Region.RegionName)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AllFeatures)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AllFeatures)
-        </dt>
-
-        @if (Model.SelectedFeatures == null)
-        {
-            <dd>No Features</dd>
-        }
-        else
-        {
-
-            foreach (var feature in Model.House.Features)
+            @if (Model.SelectedFeatures == null)
             {
-                <dd>
-                    @Html.DisplayFor(model => feature.Feature)
-                </dd>
+                <dd>No Features</dd>
             }
-        }
-        <dt>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.House.Id }) |
-            @Html.ActionLink("Back to List", "Index")
+            else
+            {
 
-        </dt>
-    </dl>
+                foreach (var feature in Model.House.Features)
+                {
+                    <dd>
+                        @Html.DisplayFor(model => feature.Feature)
+                    </dd>
+                }
+            }
+            <dt>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.House.Id }) |
+                @Html.ActionLink("Back to List", "Index")
+
+            </dt>
+        </dl>
+    </div>
 </div>

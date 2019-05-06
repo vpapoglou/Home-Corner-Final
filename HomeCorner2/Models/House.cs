@@ -27,6 +27,8 @@ namespace HomeCorner2.Models
         //[Required(ErrorMessage = "Please, provide an Address")]
         public string Address { get; set; }
 
+        public string AddressNumber { get; set; }
+
         public int PostalCode { get; set; }
 
         public int Occupancy { get; set; }

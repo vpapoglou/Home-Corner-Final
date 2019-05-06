@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201905061501551_addRoleName-addRegisterProperties.Designer.cs">
       <DependentUpon>201905061501551_addRoleName-addRegisterProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905062154172_AddedHouseFields.cs" />
+    <Compile Include="Migrations\201905062154172_AddedHouseFields.Designer.cs">
+      <DependentUpon>201905062154172_AddedHouseFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -327,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905061501551_addRoleName-addRegisterProperties.resx">
       <DependentUpon>201905061501551_addRoleName-addRegisterProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905062154172_AddedHouseFields.resx">
+      <DependentUpon>201905062154172_AddedHouseFields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
