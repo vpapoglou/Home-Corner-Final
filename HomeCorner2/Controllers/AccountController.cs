@@ -371,7 +371,7 @@ namespace HomeCorner2.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Home", "Manage");
+                return RedirectToAction("Index", "Manage");
             }
 
             if (ModelState.IsValid)
