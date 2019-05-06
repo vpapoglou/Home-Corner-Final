@@ -6,13 +6,14 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav ">
-            <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
-            <li>@Html.ActionLink("Houses", "Index", "Houses", null, new { @class = "nav-link" })</li>
-            <li>@Html.ActionLink("Profile", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "nav-link", title = "Manage" })</li>
+            <li>@Html.ActionLink("All Houses", "Index", "Houses", null, new { @class = "btn text-primary" })</li>
+            <li>@Html.ActionLink("My Houses", "Index", "Houses", null, new { @class = "btn text-primary" })</li>
+            <li>@Html.ActionLink("My Reservations", "Index", "Houses", null, new { @class = "btn text-primary" })</li>
+            <li>@Html.ActionLink("Profile", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "btn text-primary", title = "Manage" })</li>
             @*<li>
                     @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "login-name-font", title = "Manage" })
                 </li>*@
-            <li><a href="javascript:document.getElementById('logoutForm').submit()" class="btn" role="button">Log off</a></li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()" class="btn text-danger" role="button">Log off</a></li>
         </ul>
     }
 }

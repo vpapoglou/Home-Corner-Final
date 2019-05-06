@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace HomeCorner2.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

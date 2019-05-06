@@ -278,6 +278,7 @@
     <Content Include="Views\Houses\Details.cshtml" />
     <Content Include="Views\Houses\Delete.cshtml" />
     <Content Include="Views\Houses\UploadImages.cshtml" />
+    <Content Include="Views\Houses\MyHouses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
