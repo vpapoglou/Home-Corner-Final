@@ -45,13 +45,13 @@
             <div class="col-lg-2 col-12">
                 <div class="card home-cards">
                     <div class="card-avatar">
-                        <img class="card-img-top" src="..\images\test_home.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="..\HouseImages\@item.ImageName" alt="Card image cap">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
                         <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
                         <p class="card-text">@Html.DisplayFor(modelItem => item.Price)€</p>
-                        <button type="button" class="btn btn-dark">Book Now!</button>
+                        <input type="button" class="btn btn-dark" value="Book Now!" onclick="redirectToDetails(@item.Id);" />
                     </div>
                 </div>
             </div>
@@ -66,3 +66,9 @@
         <div class="col-lg-2"></div>
     </div>
 </div>
+
+<script>
+    function redirectToDetails(houseId) {
+        document.location = '../Houses/Details/' + houseId;
+    }
+</script>

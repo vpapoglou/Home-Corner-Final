@@ -185,6 +185,14 @@
     <Compile Include="Migrations\201905041350318_Initial.Designer.cs">
       <DependentUpon>201905041350318_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905052158417_UploadPhotos.cs" />
+    <Compile Include="Migrations\201905052158417_UploadPhotos.Designer.cs">
+      <DependentUpon>201905052158417_UploadPhotos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905052253337_UpdatedUploadImages.cs" />
+    <Compile Include="Migrations\201905052253337_UpdatedUploadImages.Designer.cs">
+      <DependentUpon>201905052253337_UpdatedUploadImages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -273,6 +281,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="HouseImages\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -280,6 +289,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905041350318_Initial.resx">
       <DependentUpon>201905041350318_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905052158417_UploadPhotos.resx">
+      <DependentUpon>201905052158417_UploadPhotos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905052253337_UpdatedUploadImages.resx">
+      <DependentUpon>201905052253337_UpdatedUploadImages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

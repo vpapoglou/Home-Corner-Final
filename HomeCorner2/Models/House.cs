@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web;
 
 namespace HomeCorner2.Models
@@ -37,6 +38,11 @@ namespace HomeCorner2.Models
         public DateTime EndDate { get; set; }
 
         public int OwnerId { get; set; }
+
+        public string ImageName { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase ImageData { get; set; }
 
         public virtual Customer Owner { get; set; }
 

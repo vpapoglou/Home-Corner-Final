@@ -11,6 +11,8 @@ using HomeCorner2.ViewModels;
 using HomeCorner2.Services;
 using System.IO;
 using System.Configuration;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace HomeCorner.Controllers
 {
@@ -93,7 +95,6 @@ namespace HomeCorner.Controllers
         {
             var housesViewModel = new HousesViewModel();
             var allFeaturesList = db.Features.ToList();
-            //var allRegionsList = db.Regions.ToList();
             ViewBag.AllFeatures = allFeaturesList.Select(o => new SelectListItem
             {
                 Text = o.Feature.ToString(),
@@ -108,28 +109,20 @@ namespace HomeCorner.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(HousesViewModel housesViewModel)
-        //public ActionResult Create(HousesViewModel housesViewModel, Images images)
         {
+            var allowedExtensions = new[]
+            {
+                ".spng", ".jpg", ".jpeg"
+            };
+
 
             if (ModelState.IsValid)
             {
-                //var houseToAdd = db.Houses
-                //.Include(i => i.Features)
-                //.First();
                 var houseToAdd = housesViewModel;
-                //var houseToAdd = new House();
-
-                /*if (db.Houses is null)
-                {
-                    houseToAdd.Availability = DateTime.Now;
-                    db.Houses.Add(houseToAdd);
-                }*/
-
 
                 if (TryUpdateModel(houseToAdd, "house", new string[] { "Id", "Features", "RegionId" }))
                 {
                     var updatedFeatures = new HashSet<byte>(housesViewModel.SelectedFeatures);
-                    //var updatedImages = new List<HttpPostedFileBase>();
 
                     foreach (Features features in db.Features)
                     {
@@ -142,56 +135,36 @@ namespace HomeCorner.Controllers
                             houseToAdd.House.Features.Add((features));
                         }
                     }
-
-
-                    //foreach (HttpPostedFileBase image in housesViewModel.Images)
-                    //{
-                    //    //Checking file is available to save.  
-                    //    if (image != null)
-                    //    {
-                    //        var InputFileName = Path.GetFileName(image.FileName);
-                    //        var ServerSavePath = Path.Combine(Server.MapPath("/HouseImages") + InputFileName);
-                    //        //Save file to server folder  
-                    //        image.SaveAs(ServerSavePath);
-                    //        //assigning file uploaded status to ViewBag for showing message to user.  
-                    //        ViewBag.UploadStatus = housesViewModel.Images.Count().ToString() + " files uploaded successfully.";
-                    //    }
-                    //}
                 }
+
+                //houseToAdd.House.ImageName = file.ToString();
+                var fileName = Path.GetFileName(houseToAdd.House.ImageData.FileName);
+                var ext = Path.GetExtension(houseToAdd.House.ImageData.FileName);
+                if (allowedExtensions.Contains(ext))
+                {
+                    string name = Path.GetFileNameWithoutExtension(fileName);
+                    string myfile = Guid.NewGuid()+ ext;
+                    var path = Path.Combine(Server.MapPath("/HouseImages") + "/", myfile);
+                    houseToAdd.House.ImageName = myfile;
+                    houseToAdd.House.ImageData.SaveAs(path);
+                }
+
                 db.Houses.Add(houseToAdd.House);
                 db.SaveChanges();
-
-                //List<Images> images = new List<Images>();
-                //for (int i = 0; i < Request.Files.Count; i++)
-                //{
-                //    var imageFile = Request.Files[i];
-                //    if (imageFile != null && imageFile.ContentLength > 0)
-                //    {
-                //        var imageName = Path.GetFileName(imageFile.FileName);
-                //        Images image = new Images()
-                //        {
-                //            ImageName = imageName,
-                //            Extension = Path.GetExtension(imageName),
-                //            Id = Guid.NewGuid()
-                //        };
-
-                //        images.Add(image);
-                //        var path = Path.Combine(Server.MapPath("/HouseImages"), image.Id + image.Extension);
-                //        imageFile.SaveAs(path);
-                //    }
-                //}
-                //db.Houses.Add(houseToAdd.House);
-                //db.SaveChanges();
-
-
-                return RedirectToAction("UploadImages");
+                return RedirectToAction("Index");
+                //return RedirectToAction("UploadImages");
             }
 
             ViewBag.RegionId = new SelectList(db.Regions, "RegionId", "RegionName");
-            //ViewBag.Images.Id = new SelectList(db.Images, "Id", "ImageName");
             return View(housesViewModel);
         }
 
+
+        public static byte[] GetHash(string inputString)
+        {
+            HashAlgorithm algorithm = SHA256.Create();
+            return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
 
         // GET: Houses/Details/5
         public ActionResult Details(int? id)
