@@ -197,6 +197,14 @@
     <Compile Include="Migrations\201905061120126_Admins.Designer.cs">
       <DependentUpon>201905061120126_Admins.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905061314576_addRegions.cs" />
+    <Compile Include="Migrations\201905061314576_addRegions.Designer.cs">
+      <DependentUpon>201905061314576_addRegions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905061316309_addFeatures.cs" />
+    <Compile Include="Migrations\201905061316309_addFeatures.Designer.cs">
+      <DependentUpon>201905061316309_addFeatures.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -303,6 +311,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905061120126_Admins.resx">
       <DependentUpon>201905061120126_Admins.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905061314576_addRegions.resx">
+      <DependentUpon>201905061314576_addRegions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905061316309_addFeatures.resx">
+      <DependentUpon>201905061316309_addFeatures.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
