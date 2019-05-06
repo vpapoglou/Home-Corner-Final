@@ -23,6 +23,7 @@ namespace HomeCorner.Controllers
         }
 
 
+        [Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Create()
         {
             ViewBag.Id = new SelectList(db.Customers, "Id", "Name", "Address", "Phone", "Email");
@@ -31,6 +32,7 @@ namespace HomeCorner.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Create([Bind(Include = "Id, Name, Address, Phone, Email")] Customer customer)
         {
             if (ModelState.IsValid)
@@ -44,6 +46,7 @@ namespace HomeCorner.Controllers
         }
 
         // GET: Customers/Details/5
+        [Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -59,6 +62,7 @@ namespace HomeCorner.Controllers
         }
 
         // GET: Customers/Edit/5
+        [Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,6 +83,7 @@ namespace HomeCorner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Edit([Bind(Include = "Id, Name, Address, Phone, Email")] Customer customer)
         {
             if (ModelState.IsValid)
@@ -92,6 +97,7 @@ namespace HomeCorner.Controllers
         }
 
         // GET: Customers/Delete/5
+        [Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -109,6 +115,7 @@ namespace HomeCorner.Controllers
         // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult DeleteConfirmed(int id)
         {
             Customer customer = db.Customers.Find(id);

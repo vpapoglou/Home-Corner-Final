@@ -65,6 +65,30 @@ namespace HomeCorner2.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Your User Name")]
+        public string YourUserName { get; set; }
+
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
+        [Required]
+        [Display(Name = "TK")]
+        public string TK { get; set; }
+
+        [Required]
+        [Display(Name = "Telephone Number")]
+        public string Telephone { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

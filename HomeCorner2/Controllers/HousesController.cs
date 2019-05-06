@@ -90,7 +90,6 @@ namespace HomeCorner.Controllers
             return View(db.Houses.ToList());
         }
 
-
         public ActionResult Create()
         {
             var housesViewModel = new HousesViewModel();
@@ -190,6 +189,7 @@ namespace HomeCorner.Controllers
         }
 
         // GET: Houses/Edit/5
+        [Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -227,6 +227,7 @@ namespace HomeCorner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Edit(HousesViewModel housesViewModel)
         {
             if (ModelState.IsValid)
@@ -260,6 +261,7 @@ namespace HomeCorner.Controllers
         }
 
         // GET: Houses/Delete/5
+        [Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -274,9 +276,10 @@ namespace HomeCorner.Controllers
             return View(house);
         }
 
-        // POST: Houses/Delete/5
+        // POST: Houses/Delete/5 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult DeleteConfirmed(int id)
         {
             House house = db.Houses.Find(id);
