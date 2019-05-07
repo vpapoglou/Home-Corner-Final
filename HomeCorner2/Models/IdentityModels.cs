@@ -27,7 +27,7 @@ namespace HomeCorner2.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        const string connectionString = @"Data Source=DESKTOP-M08V3JF\SQLEXPRESS;Initial Catalog=HomeCorner;Integrated Security=True";
+        const string connectionString = @"Data Source=DESKTOP-G20562D\SQLEXPRESS;Initial Catalog=HomeCorner;Integrated Security=True";
 
         public ApplicationDbContext()
             : base(connectionString, throwIfV1Schema: false)
@@ -53,6 +53,7 @@ namespace HomeCorner2.Models
 
         public DbSet<Region> Regions { get; set; }
         public DbSet<Images> Images { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
