@@ -11,7 +11,7 @@
     @if (User.IsInRole("CanManageHouses"))
     {
         <li>@Html.ActionLink("All Houses", "Index", "Houses", null, new { @class = "btn text-white" })</li>
-        <li>@Html.ActionLink("All Users", "Index", "Houses", null, new { @class = "btn text-white" })</li>
+        <li>@Html.ActionLink("All Users", "Users", "Home", null, new { @class = "btn text-white" })</li>
     }
     <li>@Html.ActionLink("Search A Corner", "Index", "Houses", null, new { @class = "btn text-white" })</li>
     <li class="nav-item dropdown">
