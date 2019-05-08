@@ -1,7 +1,7 @@
 ﻿@model HomeCorner2.ViewModels.ReservationsViewModel
 
 @{
-    ViewBag.Title = "Reservation";
+    ViewBag.Title = "Book";
     Layout = "~/Views/Shared/_LoggedInLayout.cshtml";
 }
 
@@ -15,7 +15,7 @@
         <hr />
         <dl class="dl-horizontal">
 
-            @*@Html.Partial("_HousesDataTable", Model.House)*@
+            @Html.Partial("_HousesDataTable", Model.House)
 
             <dt>
                 Adress
@@ -45,18 +45,21 @@
                     </dd>
                 }
             }
-            <div class="form-group">
-                <label class="control-label col-md-2">Availabilty</label>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Reservation.StartDate, new { htmlAttributes = new { placeholder = "From", @class = "form-control", id = "StartDate" } })
-                    @Html.ValidationMessageFor(model => model.Reservation.StartDate, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-10 mt-2">
-                    @Html.EditorFor(model => model.Reservation.EndDate, new { htmlAttributes = new { placeholder = "To", @class = "form-control", id = "EndDate" } })
-                    @Html.ValidationMessageFor(model => model.Reservation.EndDate, "", new { @class = "text-danger" })
-                </div>
-            </div>
+
             <dt>
+                Reservation
+            </dt>
+            <dt class="col-md-10">
+                @Html.EditorFor(model => model.Reservation.StartDate, new { htmlAttributes = new { placeholder = "From", @class = "form-control", id = "StartDate" } })
+                @Html.ValidationMessageFor(model => model.Reservation.StartDate, "", new { @class = "text-danger" })
+            </dt>
+            <dt class="col-md-10 mt-2">
+                @Html.EditorFor(model => model.Reservation.EndDate, new { htmlAttributes = new { placeholder = "To", @class = "form-control", id = "EndDate" } })
+                @Html.ValidationMessageFor(model => model.Reservation.EndDate, "", new { @class = "text-danger" })
+            </dt>
+            
+            <dt>
+                @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id }) |
                 @Html.ActionLink("Back to List", "Index")
 
             </dt>

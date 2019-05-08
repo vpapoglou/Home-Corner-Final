@@ -13,6 +13,7 @@ using System.IO;
 using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNet.Identity;
 
 namespace HomeCorner.Controllers
 {
@@ -20,6 +21,55 @@ namespace HomeCorner.Controllers
     {
 
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public ActionResult Book(int? id)
+        {
+            var currentUserId = User.Identity.GetUserId();
+            //var passinfo = db.Reservations.FirstOrDefault(d => d.IUser.Id == currentUserId);
+
+            if (id == null || currentUserId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var ReservationsViewModel = new ReservationsViewModel();
+            {
+                ReservationsViewModel.House = db.Houses.Include(i => i.Features).First(i => i.Id == id);
+            }
+
+            if (ReservationsViewModel.House == null)
+            {
+                return HttpNotFound();
+            }
+            
+
+
+            return View(ReservationsViewModel);
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Book(ReservationsViewModel ReservationsViewModel)
+        //{
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        var houseToReserve = ReservationsViewModel;
+
+        //        if (TryUpdateModel(houseToReserve, "reservation", new string[] { "Id", "StartDate", "EndDate" }))
+        //        {
+        //            DateTime newStartDate = new DateTime(ReservationsViewModel.Reservation.StartDate);
+        //            DateTime newEndDate = new DateTime(ReservationsViewModel.Reservation.EndDate);
+        //        }
+
+        //        db.Reservations.Add(houseToReserve.Reservation);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //        //return RedirectToAction("UploadImages");
+        //    }
+
+        //    return View(ReservationsViewModel);
+        //}
 
         public int UploadImageInDataBase(HttpPostedFileBase image, HousesViewModel housesViewModel)
         {

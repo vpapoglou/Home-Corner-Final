@@ -13,7 +13,7 @@ namespace HomeCorner2.ViewModels
 
         public House House { get; set; }
         public Reservation Reservation { get; set; }
-        public IUser IUser { get; set; }
+        public ApplicationUser User { get; set; }
 
         public Images Images { get; set; }
         public IEnumerable<SelectListItem> AllFeatures { get; set; }

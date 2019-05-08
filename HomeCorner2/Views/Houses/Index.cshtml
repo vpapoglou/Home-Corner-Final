@@ -48,7 +48,8 @@
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                         @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                        @Html.ActionLink("Book Now", "Book", new { id = item.Id })
                     </td>
                 </tr>
             </tbody>
@@ -97,11 +98,11 @@ else
                         <img src="/Houses/RetrieveImage/@item.Id" alt="" height=100 width=200 />
                     </td>
                     <td>
-                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Book Now", "Details", new { id = item.Id })
                     </td>
                 </tr>
             </tbody>
         }
-
     </table>
 }
