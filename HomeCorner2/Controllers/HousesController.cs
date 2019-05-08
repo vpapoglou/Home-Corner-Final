@@ -24,8 +24,8 @@ namespace HomeCorner.Controllers
 
         public ActionResult Reservations()
         {
-
-            return View(db.Reservations.ToList());
+            var reservations = db.Reservations.Include(i => i.House).ToList();
+            return View(reservations);
         }
 
         public ActionResult Book(int? id)
@@ -56,11 +56,17 @@ namespace HomeCorner.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Book(ReservationsViewModel reservationsViewModel)
+        public ActionResult Book(ReservationsViewModel reservationsViewModel, int id)
         {
             if (ModelState.IsValid)
             {
                 var reservationToAdd = reservationsViewModel;
+
+                var house = db.Houses.FirstOrDefault(i => i.Id == id);
+                var userId = User.Identity.GetUserId();
+                var user = db.Users.FirstOrDefault(i => i.Id == userId);
+                reservationsViewModel.Reservation.House = house;
+                reservationsViewModel.Reservation.User = user;
                 //if (TryUpdateModel(reservationToAdd, "reservation", new string[] { "Id", "StartDate", "EndDate" }))
                 //{
                 //    DateTime updatedStartDate = new DateTime(reservationsViewModel.SelectedStartDate);
@@ -75,8 +81,12 @@ namespace HomeCorner.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Reservations");
             }
+            else{
+                return View(reservationsViewModel);
 
-            return View(reservationsViewModel);
+            }
+
+
         }
 
         public int UploadImageInDataBase(HttpPostedFileBase image, HousesViewModel housesViewModel)

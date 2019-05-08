@@ -43,7 +43,7 @@
                         @Html.DisplayFor(modelItem => item.Region.RegionName)
                     </td>
                     <td>
-                        <img src="/Houses/RetrieveImage/@item.Id" alt="" height=100 width=200 />
+                        <img src="..\..\HouseImages\@item.ImageName" class="img-thumbnail" height=50 width=100 />
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

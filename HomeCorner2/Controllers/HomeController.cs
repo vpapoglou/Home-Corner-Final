@@ -21,6 +21,12 @@ namespace HomeCorner2.Controllers
             return View();
         }
 
+        public ActionResult Users()
+        {
+            var allUsers = db.Users.ToList();
+            return View(allUsers);
+        }
+
         public ActionResult Home()
         {
             var latestHouses = db.Houses.OrderByDescending(house => house.Id).Take(6);
