@@ -22,6 +22,12 @@ namespace HomeCorner.Controllers
 
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public ActionResult Reservations()
+        {
+
+            return View(db.Reservations.ToList());
+        }
+
         public ActionResult Book(int? id)
         {
             var currentUserId = User.Identity.GetUserId();
@@ -35,6 +41,7 @@ namespace HomeCorner.Controllers
             var ReservationsViewModel = new ReservationsViewModel();
             {
                 ReservationsViewModel.House = db.Houses.Include(i => i.Features).First(i => i.Id == id);
+                ReservationsViewModel.User = db.Users.First(i => i.Id == currentUserId);
             }
 
             if (ReservationsViewModel.House == null)
@@ -47,29 +54,21 @@ namespace HomeCorner.Controllers
             return View(ReservationsViewModel);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Book(ReservationsViewModel ReservationsViewModel)
-        //{
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Book(ReservationsViewModel reservationsViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var reservationToAdd = reservationsViewModel;
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        var houseToReserve = ReservationsViewModel;
+                db.Reservations.Add(reservationToAdd.Reservation);
+                db.SaveChanges();
+                return RedirectToAction("ReservationsIndex");
+            }
 
-        //        if (TryUpdateModel(houseToReserve, "reservation", new string[] { "Id", "StartDate", "EndDate" }))
-        //        {
-        //            DateTime newStartDate = new DateTime(ReservationsViewModel.Reservation.StartDate);
-        //            DateTime newEndDate = new DateTime(ReservationsViewModel.Reservation.EndDate);
-        //        }
-
-        //        db.Reservations.Add(houseToReserve.Reservation);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //        //return RedirectToAction("UploadImages");
-        //    }
-
-        //    return View(ReservationsViewModel);
-        //}
+            return View(reservationsViewModel);
+        }
 
         public int UploadImageInDataBase(HttpPostedFileBase image, HousesViewModel housesViewModel)
         {

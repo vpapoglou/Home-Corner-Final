@@ -15,27 +15,50 @@ namespace HomeCorner2.ViewModels
         public Reservation Reservation { get; set; }
         public ApplicationUser User { get; set; }
 
-        public Images Images { get; set; }
-        public IEnumerable<SelectListItem> AllFeatures { get; set; }
-        public byte[] Image { get; set; }
-        private List<byte> _selectedFeatures;
-        public List<byte> SelectedFeatures
+        //public Images Images { get; set; }
+        //public IEnumerable<SelectListItem> AllFeatures { get; set; }
+        //public byte[] Image { get; set; }
+        //private List<byte> _selectedFeatures;
+        //public List<byte> SelectedFeatures
+        //{
+        //    get
+        //    {
+        //        if (_selectedFeatures == null)
+        //        {
+        //            _selectedFeatures = House.Features.Select(m => m.Id).ToList();
+        //        }
+        //        return _selectedFeatures;
+        //    }
+        //    set { _selectedFeatures = value; }
+
+        //}
+        private DateTime _selectedStartDate;
+        public DateTime SelectedStartDate
         {
             get
             {
-                if (_selectedFeatures == null)
-                {
-                    _selectedFeatures = House.Features.Select(m => m.Id).ToList();
-                }
-                return _selectedFeatures;
+                return _selectedStartDate;
             }
-            set { _selectedFeatures = value; }
+            set { _selectedStartDate = value; }
 
         }
-        public ReservationsViewModel()
+
+        private DateTime _selectedEndDate;
+        public DateTime SelectedEndDate
         {
-            AllFeatures = new List<SelectListItem>();
+            get
+            {
+                return _selectedEndDate;
+            }
+            set { _selectedEndDate = value; }
 
         }
+
+
+        //public ReservationsViewModel()
+        //{
+        //    AllFeatures = new List<SelectListItem>();
+
+        //}
     }
 }

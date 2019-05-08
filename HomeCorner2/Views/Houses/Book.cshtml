@@ -28,10 +28,10 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.AllFeatures)
+                @Html.DisplayNameFor(model => model.House.Features)
             </dt>
 
-            @if (Model.SelectedFeatures == null)
+            @if (Model.House.Features == null)
             {
                 <dd>No Features</dd>
             }
@@ -46,22 +46,59 @@
                 }
             }
 
-            <dt>
-                Reservation
-            </dt>
-            <dt class="col-md-10">
-                @Html.EditorFor(model => model.Reservation.StartDate, new { htmlAttributes = new { placeholder = "From", @class = "form-control", id = "StartDate" } })
-                @Html.ValidationMessageFor(model => model.Reservation.StartDate, "", new { @class = "text-danger" })
-            </dt>
-            <dt class="col-md-10 mt-2">
-                @Html.EditorFor(model => model.Reservation.EndDate, new { htmlAttributes = new { placeholder = "To", @class = "form-control", id = "EndDate" } })
-                @Html.ValidationMessageFor(model => model.Reservation.EndDate, "", new { @class = "text-danger" })
-            </dt>
-            
-            <dt>
-                @Html.ActionLink("Back to List", "Index") |
-                @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id, @class = "btn btn-dark" })
-            </dt>
-        </dl>
+
+            @using (Html.BeginForm("Create", "Houses", FormMethod.Post, new
+            {
+                enctype = "multipart/form-data"
+            }))
+            {
+                @Html.AntiForgeryToken()
+                <dt>
+                    Reservation
+                </dt>
+                <dt class="col-md-10">
+                    @Html.EditorFor(model => model.Reservation.StartDate, new { htmlAttributes = new { placeholder = "From", @class = "form-control", id = "StartDate" } })
+                    @Html.ValidationMessageFor(model => model.Reservation.StartDate, "", new { @class = "text-danger" })
+                </dt>
+                <dt class="col-md-10 mt-2">
+                    @Html.EditorFor(model => model.Reservation.EndDate, new { htmlAttributes = new { placeholder = "To", @class = "form-control", id = "EndDate" } })
+                    @Html.ValidationMessageFor(model => model.Reservation.EndDate, "", new { @class = "text-danger" })
+                </dt>
+
+                <dt>
+                    @Html.ActionLink("Back to List", "Index") |
+
+                    <button type="submit" class="btn btn-primary">Book Now</button>
+
+                </dt>
+            }
+            </dl>
     </div>
 </div>
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
+    <script>
+        var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+        $('#StartDate').datepicker({
+            uiLibrary: 'bootstrap4',
+            iconsLibrary: 'fontawesome',
+            format: 'dd-mm-yyyy',
+            minDate: today,
+            maxDate: function () {
+                return $('#EndDate').val();
+            }
+        });
+        $('#EndDate').datepicker({
+            uiLibrary: 'bootstrap4',
+            iconsLibrary: 'fontawesome',
+            format: 'dd-mm-yyyy',
+            minDate: function () {
+                return $('#StartDate').val();
+            }
+        });
+    </script>
+}
