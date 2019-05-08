@@ -3,36 +3,36 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-
+    <title>Home Corner</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-
-
-
+    <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope|Caveat|Cedarville+Cursive|Chewy|Shadows+Into+Light" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
 </head>
 <body id="main-body">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            @Html.ActionLink("HomeCorner", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("HomeCorner", "Index", "Home", new { area = "" }, new { @class = "navbar-brand logo-font" })
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav mr-auto">
-                    @*<li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Profile", "Profile", "Home", null, new { @class = "nav-link" })</li>*@
-                    <li>@Html.ActionLink("Search", "Search", "Home", null, new { @class = "btn text-primary" })</li>
-                    <li>@Html.ActionLink("About Us", "AboutUs", "Home", null, new { @class = "btn text-primary" })</li>
-                    <li>@Html.ActionLink("Contact Us", "ContactUs", "Home", null, new { @class = "btn text-primary" })</li>
+                    @*<li>@Html.ActionLink("Search", "Search", "Home", null, new { @class = "btn text-white" })</li>*@
+                    <li>@Html.ActionLink("About Us", "AboutUs", "Home", null, new { @class = "btn text-white" })</li>
+                    <li>@Html.ActionLink("Contact Us", "ContactUs", "Home", null, new { @class = "btn text-white" })</li>
                 </ul>
                 @*@Html.Partial("_LoginPartial")*@
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn text-white" })</li>
+                    @*<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn text-white"})</li>*@
+                    @*<button class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
+                            Log in
+                        </button>*@
+                    <li class="btn btn-dark" id="login-modal-toggle-button">Log in</li>
                 </ul>
             </div>
         </div>
@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="col-lg-4 col-sm-8">
                     <div>
-                        @Html.ActionLink("HomeCorner", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        @Html.ActionLink("HomeCorner", "Index", "Home", new { area = "" }, new { @class = "navbar-brand logo-font" })
                     </div>
                     <div class="text-center">
                         Our team will go the extra mile to analyze the particular project in detail, and offer a business solution that will meet your requirements.
@@ -74,6 +74,7 @@
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/loginModal.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

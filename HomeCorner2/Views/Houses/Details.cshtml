@@ -7,36 +7,51 @@
 
 
 <div class="row mt-5">
-    <div class="col-lg-8">
+    <div class="col-lg-9">
         <img class="rounded image-details" src="..\..\HouseImages\@Model.House.ImageName" alt="@Model.House.Title" />
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-3">
         <h4>@Html.DisplayFor(model => model.House.Title)</h4>
         <hr />
         <dl class="dl-horizontal">
-
-            @Html.Partial("_HousesDataTable", Model.House)
+            @*@Html.Partial("_HousesDataTable", Model.House)*@
             <dt>
                 Adress
             </dt>
-
             <dd>
                 @Html.DisplayFor(model => model.House.Region.RegionName), @Html.DisplayFor(model => model.House.PostalCode)
                 <br />
                 @Html.DisplayFor(model => model.House.Address) @Html.DisplayFor(model => model.House.AddressNumber),
             </dd>
-
             <dt>
-                @Html.DisplayNameFor(model => model.AllFeatures)
+                Maximum Occupancy
             </dt>
-
+            <dd>
+                @Html.DisplayFor(model => model.House.Occupancy)
+                @if (Model.House.Occupancy <= 1)
+                {
+                    <span>Person</span>
+                }
+                else
+                {
+                    <span>Persons</span>
+                }
+            </dd>
+            <dt>
+                Price/Night
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.House.Price)€
+            </dd>
+            <dt>
+                Extra Features
+            </dt>
             @if (Model.SelectedFeatures == null)
             {
                 <dd>No Features</dd>
             }
             else
             {
-
                 foreach (var feature in Model.House.Features)
                 {
                     <dd>
@@ -45,10 +60,54 @@
                 }
             }
             <dt>
-                @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id }) |
-                @Html.ActionLink("Back to List", "Index")
+                Description
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.House.Description)
+            </dd>
+            @Html.ActionLink("Book Now", "Book", "Reservations", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-dark" })
 
+            @*<button class="btn btn-dark" data-toggle="modal" data-target="#reservationModal"">
+            Book Now!
+        </button>*@
+            <dt>
+                @if (User.IsInRole("CanManageHouses"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.House.Id })
+                    @Html.ActionLink("Back to List", "Index")
+
+                }
             </dt>
         </dl>
     </div>
 </div>
+
+@*<div class="container">
+    <!-- The Modal -->
+    <div class="modal" id="reservationModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">@Html.DisplayFor(model => model.House.Title)</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form>
+
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>*@
