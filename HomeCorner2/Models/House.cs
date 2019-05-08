@@ -46,7 +46,7 @@ namespace HomeCorner2.Models
         [NotMapped]
         public HttpPostedFileBase ImageData { get; set; }
 
-        public virtual Customer Owner { get; set; }
+        public ApplicationUser Owner { get; set; }
 
         public byte RegionId { get; set; }
 

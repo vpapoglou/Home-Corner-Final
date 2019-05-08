@@ -152,12 +152,14 @@ namespace HomeCorner.Controllers
         {
             var housesViewModel = new HousesViewModel();
             var allFeaturesList = db.Features.ToList();
+            var currentUserId = User.Identity.GetUserId();
             ViewBag.AllFeatures = allFeaturesList.Select(o => new SelectListItem
             {
                 Text = o.Feature.ToString(),
                 Value = o.Id.ToString()
             });
             ViewBag.RegionId = new SelectList(db.Regions, "RegionId", "RegionName");
+            ViewBag.OwnerId = currentUserId;
 
 
             return View();
