@@ -21,14 +21,14 @@
 <body id="main-body">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            @Html.ActionLink("HomeCorner", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("HomeCorner", "Home", "Home", new { area = "" }, new { @class = "navbar-brand logo-font" })
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav mr-auto">
-                    <li>@Html.ActionLink("About Us", "AboutUs", "Home", null, new { @class = "btn text-primary" })</li>
-                    <li>@Html.ActionLink("Contact Us", "ContactUs", "Home", null, new { @class = "btn text-primary" })</li>
+                    <li>@Html.ActionLink("About Us", "AboutUs", "Home", null, new { @class = "btn text-white" })</li>
+                    <li>@Html.ActionLink("Contact Us", "ContactUs", "Home", null, new { @class = "btn text-white" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-lg-4 col-sm-8">
                     <div>
-                        @Html.ActionLink("HomeCorner", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        @Html.ActionLink("HomeCorner", "Home", "Home", new { area = "" }, new { @class = "navbar-brand logo-font" })
                     </div>
                     <div class="text-center">
                         Our team will go the extra mile to analyze the particular project in detail, and offer a business solution that will meet your requirements.
@@ -53,7 +53,7 @@
                         <div class="col-lg-4">
                             <ul class="list-group list-group-flush list-unstyled">
                                 <li>@Html.ActionLink("Home", "Home", "Home")</li>
-                                <li>@Html.ActionLink("Profile", "Profile", "Home")</li>
+                                <li>@Html.ActionLink("Profile", "Index", "Manage")</li>
                             </ul>
                         </div>
                         <div class="col-lg-4">
