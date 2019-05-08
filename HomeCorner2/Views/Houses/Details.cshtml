@@ -65,17 +65,17 @@
             <dd>
                 @Html.DisplayFor(model => model.House.Description)
             </dd>
-            @Html.ActionLink("Book Now", "Book", "Reservations", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-dark" })
-
+            @Html.ActionLink("Back to List", "Index") |
+            @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id, @class = "btn btn-dark" })
             @*<button class="btn btn-dark" data-toggle="modal" data-target="#reservationModal"">
             Book Now!
         </button>*@
             <dt>
                 @if (User.IsInRole("CanManageHouses"))
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.House.Id })
                     @Html.ActionLink("Back to List", "Index")
-
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.House.Id, @class = "btn btn-dark" })
+                    @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id, @class = "btn btn-dark" })
                 }
             </dt>
         </dl>

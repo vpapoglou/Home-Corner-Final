@@ -59,9 +59,8 @@
             </dt>
             
             <dt>
-                @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id }) |
-                @Html.ActionLink("Back to List", "Index")
-
+                @Html.ActionLink("Back to List", "Index") |
+                @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id, @class = "btn btn-dark" })
             </dt>
         </dl>
     </div>
