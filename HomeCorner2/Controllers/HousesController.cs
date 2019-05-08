@@ -40,7 +40,7 @@ namespace HomeCorner.Controllers
 
             var ReservationsViewModel = new ReservationsViewModel();
             {
-                ReservationsViewModel.House = db.Houses.Include(i => i.Features).First(i => i.Id == id);
+                ReservationsViewModel.House = db.Houses.First(i => i.Id == id);
                 ReservationsViewModel.User = db.Users.First(i => i.Id == currentUserId);
             }
 
@@ -61,10 +61,19 @@ namespace HomeCorner.Controllers
             if (ModelState.IsValid)
             {
                 var reservationToAdd = reservationsViewModel;
+                //if (TryUpdateModel(reservationToAdd, "reservation", new string[] { "Id", "StartDate", "EndDate" }))
+                //{
+                //    DateTime updatedStartDate = new DateTime(reservationsViewModel.SelectedStartDate);
+                //    DateTime updatedEndDate = new DateTime(reservationsViewModel.SelectedEndDate);
+
+                //    reservationToAdd.Reservation.StartDate = updatedStartDate;
+
+                //    reservationToAdd.Reservation.EndDate = updatedEndDate;
+                //}
 
                 db.Reservations.Add(reservationToAdd.Reservation);
                 db.SaveChanges();
-                return RedirectToAction("ReservationsIndex");
+                return RedirectToAction("Reservations");
             }
 
             return View(reservationsViewModel);
