@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<HomeCorner2.Models.House>
-
 @{
 
     ViewBag.Title = "Home Page";
@@ -27,9 +26,6 @@
 "Are you ready to explore your next destination? Let's start looking for a place for you to stay!"
 };
 }
-
-<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
-
 <div class="jumbotron mt-4">
     <div id="greetings-home-message">
         @greetings
@@ -38,13 +34,11 @@
         </p>
     </div>
 </div>
-
 <div>
     <div class="row">
-
         @foreach (var item in Model)
         {
-            <div class="col-lg-2 col-12">
+            <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-6 d-flex justify-content-center mb-md-3 mb-sm-3 mb-3">
                 <div class="card home-cards">
                     <div class="card-avatar">
                         <img class="card-img-top" src="..\HouseImages\@item.ImageName" alt="@item.Title">
@@ -58,18 +52,16 @@
                 </div>
             </div>
         }
-
     </div>
     <div class="row mt-3">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-8">
-            @Html.ActionLink("Book Now!", "Search", "Home", new { area = "" }, new {InputType = "button", @class = "btn btn-block btn-dark" })
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-2 col-2"></div>
+        <div class="col-xl-8 col-lg-8 col-md-6 col-sm-8 col-8">
+            @Html.ActionLink("Book Now!", "Search", "Home", new { area = "" }, new { InputType = "button", @class = "btn btn-block btn-dark" })
             @*<input type="button" class="btn btn-block btn-dark" value="Book Now!" onclick="@Html.ActionLink("AboutUs", "Home")" />*@
         </div>
-        <div class="col-lg-2"></div>
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-2 col-2"></div>
     </div>
 </div>
-
 <script>
     function redirectToDetails(houseId) {
         document.location = '../Houses/Details/' + houseId;
