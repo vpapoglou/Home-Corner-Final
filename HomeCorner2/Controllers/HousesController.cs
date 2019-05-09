@@ -28,6 +28,20 @@ namespace HomeCorner.Controllers
             return View(reservations);
         }
 
+        public ActionResult MyHouses()
+        {
+            var currentUserId = User.Identity.GetUserId();
+            var myHouses = db.Houses.Where(i => i.OwnerId.ToString() == currentUserId).ToList();
+            return View(myHouses);
+        }
+
+        public ActionResult MyReservations()
+        {
+            var currentUserId = User.Identity.GetUserId();
+            var myReservations = db.Reservations.Where(i => i.User.Id.ToString() == currentUserId).ToList();
+            return View(myReservations);
+        }
+
         public ActionResult Book(int? id)
         {
             var currentUserId = User.Identity.GetUserId();
@@ -179,6 +193,9 @@ namespace HomeCorner.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(HousesViewModel housesViewModel)
         {
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.FirstOrDefault(i => i.Id == userId);
+            housesViewModel.Owner = user;
             var allowedExtensions = new[]
             {
                 ".spng", ".jpg", ".jpeg"

@@ -11,6 +11,7 @@ namespace HomeCorner2.ViewModels
     {
         public House House { get; set; }  //oxi lista giati mas endiaferei sto details kai sta ypoloipa views na emfanizetai mono ena spiti kai ola ta features tou kai oxi ola ta spitia mazi
         /// Gets or sets Image file.
+        public ApplicationUser Owner { get; set; }
         public Images Images { get; set; }
         public IEnumerable<SelectListItem> AllFeatures { get; set; }
         /// <summary>  

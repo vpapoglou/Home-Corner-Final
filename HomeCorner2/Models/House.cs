@@ -39,7 +39,6 @@ namespace HomeCorner2.Models
 
         public DateTime EndDate { get; set; }
 
-        public int OwnerId { get; set; }
 
         public string ImageName { get; set; }
 
@@ -47,6 +46,8 @@ namespace HomeCorner2.Models
         public HttpPostedFileBase ImageData { get; set; }
 
         public ApplicationUser Owner { get; set; }
+
+        public int OwnerId { get; set; }
 
         public byte RegionId { get; set; }
 

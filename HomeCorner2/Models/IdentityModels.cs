@@ -59,11 +59,11 @@ namespace HomeCorner2.Models
         {
             base.OnModelCreating(modelBuilder);
             // configures one-to-many relationship
-            modelBuilder.Entity<House>()
-                .HasRequired<Customer>(s => s.Owner)
-                .WithMany(g => g.Houses)
-                .HasForeignKey<int>(s => s.OwnerId)
-                .WillCascadeOnDelete();
+            //modelBuilder.Entity<House>()
+            //    .HasRequired<Customer>(s => s.Owner)
+            //    .WithMany(g => g.Houses)
+            //    .HasForeignKey<int>(s => s.OwnerId)
+            //    .WillCascadeOnDelete();
 
             modelBuilder.Entity<House>()
                 .HasRequired<Region>(s => s.Region)

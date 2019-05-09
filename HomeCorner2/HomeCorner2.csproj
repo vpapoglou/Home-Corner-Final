@@ -221,6 +221,14 @@
     <Compile Include="Migrations\201905071615128_addReservations1.Designer.cs">
       <DependentUpon>201905071615128_addReservations1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905081755111_OwnerId.cs" />
+    <Compile Include="Migrations\201905081755111_OwnerId.Designer.cs">
+      <DependentUpon>201905081755111_OwnerId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905090902081_Owner2.cs" />
+    <Compile Include="Migrations\201905090902081_Owner2.Designer.cs">
+      <DependentUpon>201905090902081_Owner2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -354,6 +362,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905071615128_addReservations1.resx">
       <DependentUpon>201905071615128_addReservations1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905081755111_OwnerId.resx">
+      <DependentUpon>201905081755111_OwnerId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905090902081_Owner2.resx">
+      <DependentUpon>201905090902081_Owner2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
