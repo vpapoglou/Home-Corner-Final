@@ -14,6 +14,7 @@ using System.Configuration;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNet.Identity;
+using System.Collections;
 
 namespace HomeCorner.Controllers
 {
@@ -38,7 +39,7 @@ namespace HomeCorner.Controllers
         public ActionResult MyReservations()
         {
             var currentUserId = User.Identity.GetUserId();
-            var myReservations = db.Reservations.Where(i => i.User.Id.ToString() == currentUserId).ToList();
+            var myReservations = db.Reservations.Where(i => i.House.Id.ToString() == currentUserId).ToList();
             return View(myReservations);
         }
 
@@ -79,8 +80,32 @@ namespace HomeCorner.Controllers
                 var house = db.Houses.FirstOrDefault(i => i.Id == id);
                 var userId = User.Identity.GetUserId();
                 var user = db.Users.FirstOrDefault(i => i.Id == userId);
+
+                DateTime houseStartDate = house.StartDate;
+                DateTime houseEndDate = house.EndDate;
+                DateTime givenStartDate = reservationToAdd.Reservation.House.StartDate;
+                DateTime givenEndDate = reservationToAdd.Reservation.House.EndDate;
+
+
+                if ((givenStartDate.Date > houseStartDate.Date) || (givenEndDate.Date < houseEndDate.Date))
+                {
+                    return View(reservationsViewModel);
+                }
+                else
+                {
+
+                    foreach (Reservation reservations in db.Reservations.Where(n => n.House.Id == id))
+                    {
+                        if ((givenStartDate.Date > reservations.StartDate.Date) || (givenEndDate.Date < reservations.EndDate.Date))
+                        {
+                            return View(reservationsViewModel);
+                        }
+                    }
+                }
+
                 reservationsViewModel.Reservation.House = house;
                 reservationsViewModel.Reservation.User = user;
+
                 //if (TryUpdateModel(reservationToAdd, "reservation", new string[] { "Id", "StartDate", "EndDate" }))
                 //{
                 //    DateTime updatedStartDate = new DateTime(reservationsViewModel.SelectedStartDate);
@@ -237,7 +262,7 @@ namespace HomeCorner.Controllers
 
                 db.Houses.Add(houseToAdd.House);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { message = "Success" });
                 //return RedirectToAction("UploadImages");
             }
 
@@ -372,7 +397,7 @@ namespace HomeCorner.Controllers
             House house = db.Houses.Find(id);
             db.Houses.Remove(house);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { message = "Success" });
         }
 
         protected override void Dispose(bool disposing)

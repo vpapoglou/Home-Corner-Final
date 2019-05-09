@@ -27,7 +27,7 @@ namespace HomeCorner2.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        const string connectionString = @"Data Source=CHRIS\SQLEXPRESS01;Initial Catalog=HomeCorner;Integrated Security=True";
+        const string connectionString = @"Data Source=DESKTOP-G20562D\SQLEXPRESS;Initial Catalog=HomeCorner;Integrated Security=True";
 
         public ApplicationDbContext()
             : base(connectionString, throwIfV1Schema: false)
