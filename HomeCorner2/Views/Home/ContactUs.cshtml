@@ -4,7 +4,7 @@
 @*<h3>@ViewBag.Message</h3>*@
 
 <div class="row mb-5 mt-5">
-    <div class="col-lg-6">
+    <div class="col-xl-6 col-lg-6 col-md-10 col-sm-12 col-12">
         <h2>@ViewBag.Title</h2>
         <h5>Feel free to contact us for any business, media, or personal inquiries:</h5>
         <div class="container">
@@ -25,7 +25,7 @@
             <div id="googleMap" style="width:100%;height:400px;"></div>
         </div>
     </div>
-    <div class="col-lg-6 mt-5">
+    <div class="col-xl-6 col-lg-6 col-md-10 col-sm-12 col-12 mt-5">
         @using (Html.BeginForm("Email", "Home", FormMethod.Post))
         {
             <div class="contactus-form center-div">
@@ -67,6 +67,7 @@
         var marker = new google.maps.Marker({
             position: homeCornerLatLng,
             map: map,
+            animation: google.maps.Animation.DROP,
             title: 'Home Corner Offices'
         });
     }
