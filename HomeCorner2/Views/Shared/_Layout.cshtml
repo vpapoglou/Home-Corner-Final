@@ -27,11 +27,11 @@
                 @*@Html.Partial("_LoginPartial")*@
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn text-white" })</li>
-                    @*<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn text-white"})</li>*@
+                    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn text-white"})</li>
                     @*<button class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
                             Log in
                         </button>*@
-                    <li class="btn btn-dark" id="login-modal-toggle-button">Log in</li>
+                    @*<li class="btn btn-dark" id="login-modal-toggle-button">Log in</li>*@
                 </ul>
             </div>
         </div>

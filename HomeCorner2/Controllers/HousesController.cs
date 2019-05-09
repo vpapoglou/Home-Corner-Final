@@ -39,7 +39,8 @@ namespace HomeCorner.Controllers
         public ActionResult MyReservations()
         {
             var currentUserId = User.Identity.GetUserId();
-            var myReservations = db.Reservations.Where(i => i.House.Id.ToString() == currentUserId).ToList();
+            var myReservations = db.Reservations.Where(i => i.User.Id == currentUserId).ToList();
+            //var myReservations = db.Reservations.Where(i => i.House.Id.ToString() == currentUserId).ToList();
             return View(myReservations);
         }
 
@@ -128,67 +129,67 @@ namespace HomeCorner.Controllers
 
         }
 
-        public int UploadImageInDataBase(HttpPostedFileBase image, HousesViewModel housesViewModel)
-        {
-            housesViewModel.Image = ConvertToBytes(image);
-            var imageToAdd = housesViewModel.Images;
+        //public int UploadImageInDataBase(HttpPostedFileBase image, HousesViewModel housesViewModel)
+        //{
+        //    housesViewModel.Image = ConvertToBytes(image);
+        //    var imageToAdd = housesViewModel.Images;
 
-            db.Images.Add(imageToAdd);
+        //    db.Images.Add(imageToAdd);
 
-            int i = db.SaveChanges();
-            if (i == 1)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        public byte[] ConvertToBytes(HttpPostedFileBase image)
-        {
-            byte[] imageBytes = null;
-            BinaryReader reader = new BinaryReader(image.InputStream);
-            imageBytes = reader.ReadBytes((int)image.ContentLength);
-            return imageBytes;
-        }
+        //    int i = db.SaveChanges();
+        //    if (i == 1)
+        //    {
+        //        return 1;
+        //    }
+        //    else
+        //    {
+        //        return 0;
+        //    }
+        //}
+        //public byte[] ConvertToBytes(HttpPostedFileBase image)
+        //{
+        //    byte[] imageBytes = null;
+        //    BinaryReader reader = new BinaryReader(image.InputStream);
+        //    imageBytes = reader.ReadBytes((int)image.ContentLength);
+        //    return imageBytes;
+        //}
 
-        public ActionResult RetrieveImage(Guid id)
-        {
-            byte[] cover = GetImageFromDataBase(id);
-            if (cover != null)
-            {
-                return File(cover, "image/jpg");
-            }
-            else
-            {
-                return null;
-            }
-        }
-        public byte[] GetImageFromDataBase(Guid Id)
-        {
-            var q = from temp in db.Images where temp.Id == Id select temp.byteImage;
-            byte[] cover = q.First();
-            return cover;
-        }
+        //public ActionResult RetrieveImage(Guid id)
+        //{
+        //    byte[] cover = GetImageFromDataBase(id);
+        //    if (cover != null)
+        //    {
+        //        return File(cover, "image/jpg");
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
+        //public byte[] GetImageFromDataBase(Guid Id)
+        //{
+        //    var q = from temp in db.Images where temp.Id == Id select temp.byteImage;
+        //    byte[] cover = q.First();
+        //    return cover;
+        //}
 
-        // GET: Images  
-        public ActionResult UploadImages()
-        {
-            return View();
-        }
-        // POST: Images
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult UploadImages(HousesViewModel housesViewModel)
-        {
+        //// GET: Images  
+        //public ActionResult UploadImages()
+        //{
+        //    return View();
+        //}
+        //// POST: Images
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult UploadImages(HousesViewModel housesViewModel)
+        //{
 
-            HttpPostedFileBase file = Request.Files["ImageData"];
+        //    HttpPostedFileBase file = Request.Files["ImageData"];
 
-            UploadImageInDataBase(file, housesViewModel);
+        //    UploadImageInDataBase(file, housesViewModel);
 
-            return RedirectToAction("Index"); ;
-        }
+        //    return RedirectToAction("Index"); ;
+        //}
 
         // GET: Houses
         public ActionResult Index()
@@ -219,7 +220,7 @@ namespace HomeCorner.Controllers
         public ActionResult Create(HousesViewModel housesViewModel)
         {
             var userId = User.Identity.GetUserId();
-            var user = db.Users.FirstOrDefault(i => i.Id == userId);
+            var user = db.Users.Where(i => i.Id == userId).FirstOrDefault();
             housesViewModel.Owner = user;
             var allowedExtensions = new[]
             {
@@ -259,6 +260,7 @@ namespace HomeCorner.Controllers
                     houseToAdd.House.ImageName = myfile;
                     houseToAdd.House.ImageData.SaveAs(path);
                 }
+                houseToAdd.House.OwnerId = userId;
 
                 db.Houses.Add(houseToAdd.House);
                 db.SaveChanges();

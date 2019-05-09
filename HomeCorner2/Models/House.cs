@@ -47,7 +47,8 @@ namespace HomeCorner2.Models
 
         public ApplicationUser Owner { get; set; }
 
-        public int OwnerId { get; set; }
+        //public int OwnerId { get; set; }
+        public string OwnerId { get; set; }
 
         public byte RegionId { get; set; }
 

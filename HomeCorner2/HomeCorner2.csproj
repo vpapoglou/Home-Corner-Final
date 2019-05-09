@@ -229,6 +229,10 @@
     <Compile Include="Migrations\201905090902081_Owner2.Designer.cs">
       <DependentUpon>201905090902081_Owner2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905091039150_HousesdbtableChanges.cs" />
+    <Compile Include="Migrations\201905091039150_HousesdbtableChanges.Designer.cs">
+      <DependentUpon>201905091039150_HousesdbtableChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -376,6 +380,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905090902081_Owner2.resx">
       <DependentUpon>201905090902081_Owner2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905091039150_HousesdbtableChanges.resx">
+      <DependentUpon>201905091039150_HousesdbtableChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

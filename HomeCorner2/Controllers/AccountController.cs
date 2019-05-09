@@ -153,7 +153,7 @@ namespace HomeCorner2.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser {
-                    UserName = model.YourUserName,
+                    UserName = model.Email,
                     YourUserName = model.YourUserName,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
