@@ -1,10 +1,5 @@
 ﻿$(document).ready(function () {
 
-    displayToastr();
-
-});
-
-function displayToastr() {
     if ('@TempData["message"]' == "Success") {
         toastr.success('Success!');
     }
@@ -13,4 +8,4 @@ function displayToastr() {
             toastr.error('Something went Wrong!');
         }
     }
-}
+});

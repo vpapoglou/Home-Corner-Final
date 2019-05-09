@@ -84,13 +84,13 @@ namespace HomeCorner.Controllers
 
                 DateTime houseStartDate = house.StartDate;
                 DateTime houseEndDate = house.EndDate;
-                DateTime givenStartDate = reservationToAdd.Reservation.House.StartDate;
-                DateTime givenEndDate = reservationToAdd.Reservation.House.EndDate;
+                DateTime givenStartDate = reservationToAdd.Reservation.StartDate;
+                DateTime givenEndDate = reservationToAdd.Reservation.EndDate;
 
 
                 if ((givenStartDate.Date > houseStartDate.Date) || (givenEndDate.Date < houseEndDate.Date))
                 {
-                    return View(reservationsViewModel);
+                    return RedirectToAction("Index", new { message = "Error" });
                 }
                 else
                 {
@@ -99,102 +99,30 @@ namespace HomeCorner.Controllers
                     {
                         if ((givenStartDate.Date > reservations.StartDate.Date) || (givenEndDate.Date < reservations.EndDate.Date))
                         {
-                            return View(reservationsViewModel);
+                            return RedirectToAction("Index", new { message = "Error" });
                         }
                     }
                 }
 
                 reservationsViewModel.Reservation.House = house;
                 reservationsViewModel.Reservation.User = user;
-
-                //if (TryUpdateModel(reservationToAdd, "reservation", new string[] { "Id", "StartDate", "EndDate" }))
-                //{
-                //    DateTime updatedStartDate = new DateTime(reservationsViewModel.SelectedStartDate);
-                //    DateTime updatedEndDate = new DateTime(reservationsViewModel.SelectedEndDate);
-
-                //    reservationToAdd.Reservation.StartDate = updatedStartDate;
-
-                //    reservationToAdd.Reservation.EndDate = updatedEndDate;
-                //}
-
                 db.Reservations.Add(reservationToAdd.Reservation);
                 db.SaveChanges();
-                return RedirectToAction("Reservations");
+                
+                return RedirectToAction("Index", new { message = "Success" });
             }
             else{
                 return View(reservationsViewModel);
-
             }
-
-
         }
 
-        //public int UploadImageInDataBase(HttpPostedFileBase image, HousesViewModel housesViewModel)
-        //{
-        //    housesViewModel.Image = ConvertToBytes(image);
-        //    var imageToAdd = housesViewModel.Images;
-
-        //    db.Images.Add(imageToAdd);
-
-        //    int i = db.SaveChanges();
-        //    if (i == 1)
-        //    {
-        //        return 1;
-        //    }
-        //    else
-        //    {
-        //        return 0;
-        //    }
-        //}
-        //public byte[] ConvertToBytes(HttpPostedFileBase image)
-        //{
-        //    byte[] imageBytes = null;
-        //    BinaryReader reader = new BinaryReader(image.InputStream);
-        //    imageBytes = reader.ReadBytes((int)image.ContentLength);
-        //    return imageBytes;
-        //}
-
-        //public ActionResult RetrieveImage(Guid id)
-        //{
-        //    byte[] cover = GetImageFromDataBase(id);
-        //    if (cover != null)
-        //    {
-        //        return File(cover, "image/jpg");
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //}
-        //public byte[] GetImageFromDataBase(Guid Id)
-        //{
-        //    var q = from temp in db.Images where temp.Id == Id select temp.byteImage;
-        //    byte[] cover = q.First();
-        //    return cover;
-        //}
-
-        //// GET: Images  
-        //public ActionResult UploadImages()
-        //{
-        //    return View();
-        //}
-        //// POST: Images
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult UploadImages(HousesViewModel housesViewModel)
-        //{
-
-        //    HttpPostedFileBase file = Request.Files["ImageData"];
-
-        //    UploadImageInDataBase(file, housesViewModel);
-
-        //    return RedirectToAction("Index"); ;
-        //}
-
         // GET: Houses
-        public ActionResult Index()
+        public ActionResult Index(string message)
         {
-
+            if (!string.IsNullOrEmpty(message))
+            {
+                ViewBag.message = message;
+            }
             return View(db.Houses.ToList());
         }
 
@@ -210,8 +138,6 @@ namespace HomeCorner.Controllers
             });
             ViewBag.RegionId = new SelectList(db.Regions, "RegionId", "RegionName");
             ViewBag.OwnerId = currentUserId;
-
-
             return View();
         }
 
@@ -412,3 +338,4 @@ namespace HomeCorner.Controllers
         }
     }
 }
+

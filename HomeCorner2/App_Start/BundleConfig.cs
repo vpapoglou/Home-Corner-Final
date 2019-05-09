@@ -30,6 +30,7 @@ namespace HomeCorner2
             bundles.Add(new ScriptBundle("~/bundles/toastr").Include(
                        "~/Scripts/toastr.js*",
                        "~/Scripts/toastrImp.js"));
+
         }
     }
 }
