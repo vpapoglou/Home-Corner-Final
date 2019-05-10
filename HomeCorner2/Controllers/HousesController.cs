@@ -117,13 +117,29 @@ namespace HomeCorner.Controllers
         }
 
         // GET: Houses
-        public ActionResult Index(string message)
+        public ActionResult Index(string message, string option, string search)
         {
+            //if a user choose the radio button option as Subject  
+            if (option == "Region")
+            {
+                //Index action method will return a view with a student records based on what a user specify the value in textbox  
+                return View(db.Houses.Where(x => x.Region.RegionName == search || search == null).ToList());
+            }
+            else if (option == "Occupancy")
+            {
+                return View(db.Houses.Where(x => x.Occupancy.ToString() == search || search == null).ToList());
+            }
+            else if (option == "StartDate")
+            {
+                return View(db.Houses.Where(x => x.StartDate.ToString() == search || search == null).ToList());
+            }
+            else {
             if (!string.IsNullOrEmpty(message))
             {
                 ViewBag.message = message;
             }
             return View(db.Houses.ToList());
+            }
         }
 
         public ActionResult Create()

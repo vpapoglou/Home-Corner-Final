@@ -4,6 +4,34 @@
     Layout = "~/Views/Shared/_LoggedInLayout.cshtml";
 }
 
+@* Html.BeginForm is used to add a form in an Html document * @@ * Pass the action name in the first parameter, controller name in the second parameter and specify the form request type as get *@
+
+
+@*else
+    {
+
+        foreach (var item in Model)
+        {<tr>
+                <td>@Html.DisplayFor(modelItem => item.Region.RegionName)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Occupancy)
+                </td>
+                <td> @Html.DisplayFor(modelItem => item.StartDate) </td>
+            </tr>
+        }
+    }*@
+
+@using (Html.BeginForm("Index", "Houses", FormMethod.Get))
+{
+    //the following are search options
+    <b> Search Option: </b> @Html.RadioButton("option", "Region") <text>Region</text> @Html.RadioButton("option", "Occupancy")<text>Occupancy</text>
+    @Html.RadioButton("option", "StartDate")<text>Start Date</text> @Html.TextBox("search")<input type="submit" name="submit" value="Search" />
+}
+
+@if (Model.Count() == 0)
+{<tr> <p colspan="3" class="text-danger">Records not found </p></tr>
+}
+
 <h2>Houses</h2>
 @if (User.IsInRole("CanManageHouses"))
 {
@@ -32,6 +60,10 @@
         @foreach (var item in Model)
         {
             <tbody>
+                @if (Model.Count() == 0)
+                {
+                    <tr> <td colspan="3"> Records not found </td></tr>
+                }
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Title)
