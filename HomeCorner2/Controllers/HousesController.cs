@@ -64,7 +64,7 @@ namespace HomeCorner.Controllers
             {
                 return HttpNotFound();
             }
-            
+
 
 
             return View(ReservationsViewModel);
@@ -111,7 +111,8 @@ namespace HomeCorner.Controllers
                 
                 return RedirectToAction("Index", new { message = "Success" });
             }
-            else{
+            else
+            {
                 return View(reservationsViewModel);
             }
         }
@@ -181,7 +182,7 @@ namespace HomeCorner.Controllers
                 if (allowedExtensions.Contains(ext))
                 {
                     string name = Path.GetFileNameWithoutExtension(fileName);
-                    string myfile = Guid.NewGuid()+ ext;
+                    string myfile = Guid.NewGuid() + ext;
                     var path = Path.Combine(Server.MapPath("/HouseImages") + "/", myfile);
                     houseToAdd.House.ImageName = myfile;
                     houseToAdd.House.ImageData.SaveAs(path);
@@ -273,7 +274,7 @@ namespace HomeCorner.Controllers
             if (ModelState.IsValid)
             {
                 var houseToAdd = housesViewModel;
-                if (TryUpdateModel(houseToAdd, "house", new string[] { "Features", "RegionId" }))
+                if (TryUpdateModel(houseToAdd, "house", new string[] {"Features", "RegionId" }))
                 {
                     var updatedFeatures = new HashSet<byte>(housesViewModel.SelectedFeatures);
                     //var updatedRegion = housesViewModel.SelectedRegion;
@@ -290,6 +291,7 @@ namespace HomeCorner.Controllers
                         }
                     }
                 }
+
                 db.Entry(houseToAdd.House).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

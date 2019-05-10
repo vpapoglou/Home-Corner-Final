@@ -27,11 +27,11 @@
                 @*@Html.Partial("_LoginPartial")*@
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn text-white" })</li>
-                    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn text-white"})</li>
+                    @*<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn text-white"})</li>*@
                     @*<button class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
                             Log in
                         </button>*@
-                    @*<li class="btn btn-dark" id="login-modal-toggle-button">Log in</li>*@
+                    <li class="btn btn-dark" id="login-modal-toggle-button">Log in</li>
                 </ul>
             </div>
         </div>
@@ -48,7 +48,7 @@
                     <div class="text-center">
                         Our team will go the extra mile to analyze the particular project in detail, and offer a business solution that will meet your requirements.
                     </div>
-                    <p class="mt-3">&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                    <p class="mt-3">&copy; @DateTime.Now.Year - Home Corner</p>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-8">
                     <ul class="list-group list-group-flush list-unstyled">

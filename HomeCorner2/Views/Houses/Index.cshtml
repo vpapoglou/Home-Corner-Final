@@ -3,7 +3,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LoggedInLayout.cshtml";
 }
-
 <h2>Houses</h2>
 @if (User.IsInRole("CanManageHouses"))
 {
@@ -14,36 +13,34 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Title)
+                    Image
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Description)
+                    Title
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Region)
+                    Address
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Images)
+                    Owner
                 </th>
-
             </tr>
         </thead>
-
         @foreach (var item in Model)
         {
             <tbody>
                 <tr>
                     <td>
+                        <img src="..\..\HouseImages\@item.ImageName" class="img-thumbnail" height=50 width=100 />
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.Title)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Description)
+                        @Html.DisplayFor(modelItem => item.Region.RegionName),<br />@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.AddressNumber)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Region.RegionName)
-                    </td>
-                    <td>
-                        <img src="..\..\HouseImages\@item.ImageName" class="img-thumbnail" height=50 width=100 />
+                        @Html.DisplayFor(modelItem => item.Owner.Email)
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
@@ -54,7 +51,6 @@
                 </tr>
             </tbody>
         }
-
     </table>
 }
 else
@@ -77,10 +73,8 @@ else
                 <th>
                     @Html.DisplayNameFor(model => model.Images)
                 </th>
-
             </tr>
         </thead>
-
         @foreach (var item in Model)
         {
             <tbody>
