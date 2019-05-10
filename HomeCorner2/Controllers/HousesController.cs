@@ -346,6 +346,33 @@ namespace HomeCorner.Controllers
             return RedirectToAction("Index", new { message = "Success" });
         }
 
+        // GET: Reservations/Cancel/5
+        public ActionResult Cancel(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Reservation reservation = db.Reservations.Find(id);
+            if (reservation == null)
+            {
+                return HttpNotFound();
+            }
+            return View(reservation);
+        }
+
+        // POST: Reservations/Cancel/5 
+        [HttpPost, ActionName("Cancel")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CancelConfirmed(int id)
+        {
+            Reservation reservation = db.Reservations.Find(id);
+            db.Reservations.Remove(reservation);
+            db.SaveChanges();
+            return RedirectToAction("Index", new { message = "Success" });
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
