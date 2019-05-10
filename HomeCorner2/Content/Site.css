@@ -44,7 +44,7 @@ textarea {
 
 .center-div {
     margin: 0 auto;
-    width: 70% /* value of your choice which suits your alignment */
+    width: 55% /* value of your choice which suits your alignment */
 }
 
 .contactus-form {
@@ -78,4 +78,9 @@ textarea {
 .carousel-inner img {
     width: 100%;
     height: 100%;
+}
+
+.info-labels {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
 }

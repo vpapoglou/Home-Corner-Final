@@ -11,13 +11,16 @@
     <thead>
         <tr>
             <th>
-                Username
+                User Full Name
             </th>
             <th>
                 User Email
             </th>
             <th>
                 User Address
+            </th>
+            <th>
+                User Phone
             </th>
         </tr>
     </thead>
@@ -27,13 +30,18 @@
         <tbody>
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Roles)
+                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Address)
+                    @Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.TK)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telephone)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

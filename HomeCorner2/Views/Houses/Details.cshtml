@@ -14,9 +14,9 @@
         <h4>@Html.DisplayFor(model => model.House.Title)</h4>
         <hr />
         <dl class="dl-horizontal">
-            @Html.Partial("_HousesDataTable", Model.House)
+            @*@Html.Partial("_HousesDataTable", Model.House)*@
             <dt>
-                Adress
+                Address
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.House.Region.RegionName), @Html.DisplayFor(model => model.House.PostalCode)
