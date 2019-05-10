@@ -290,11 +290,17 @@ namespace HomeCorner.Controllers
             if (ModelState.IsValid)
             {
                 var houseToAdd = housesViewModel;
-                if (TryUpdateModel(houseToAdd, "house", new string[] {"Features", "RegionId" }))
+
+                var allowedExtensions = new[]
+                {
+                ".spng", ".jpg", ".jpeg"
+                };
+
+                if (TryUpdateModel(houseToAdd, "house", new string[] {"Features", "RegionId", "StartDate", "EndDate"}))
                 {
                     var updatedFeatures = new HashSet<byte>(housesViewModel.SelectedFeatures);
-                    //var updatedRegion = housesViewModel.SelectedRegion;
 
+                    //var updatedRegion = housesViewModel.SelectedRegion;
                     foreach (Features features in db.Features)
                     {
                         if (!updatedFeatures.Contains(features.Id))
@@ -306,11 +312,25 @@ namespace HomeCorner.Controllers
                             houseToAdd.House.Features.Add((features));
                         }
                     }
-                }
 
-                db.Entry(houseToAdd.House).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    var ext = Path.GetExtension(houseToAdd.House.ImageData.FileName);
+                    if (allowedExtensions.Contains(ext))
+                        {
+                        var fileName = Path.GetFileName(houseToAdd.House.ImageData.FileName);
+                        string name = Path.GetFileNameWithoutExtension(fileName);
+                        string myfile = Guid.NewGuid() + ext;
+                        var path = Path.Combine(Server.MapPath("/HouseImages") + "/", myfile);
+                        houseToAdd.House.ImageName = myfile;
+                        houseToAdd.House.ImageData.SaveAs(path);
+                     }
+
+                    
+
+                    db.Entry(houseToAdd.House).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", new { message = "Success" });
+                }
+                
             }
             //ViewBag.Id = new SelectList(db.Houses, "Id", "Title", housesViewModel.House.Id);
             ViewBag.RegionId = new SelectList(db.Regions, "RegionId", "RegionName");

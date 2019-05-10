@@ -32,20 +32,6 @@ namespace HomeCorner2.ViewModels
             set { _selectedFeatures = value; }
 
         }
-
-        /*private byte? _selectedRegion;
-public byte? SelectedRegion
-{
-get
-{
-if (_selectedRegion == null)
-{
-_selectedRegion = House.Region.RegionId;
-}
-return _selectedRegion;
-}
-set { _selectedRegion = House.Region.RegionId; }
-}*/
         public HousesViewModel()
         {
             AllFeatures = new List<SelectListItem>();
