@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HomeCorner2.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Net;
 
 namespace HomeCorner2.Controllers
 {
@@ -92,7 +93,21 @@ namespace HomeCorner2.Controllers
             }
         }
 
-        //
+        //GET: /Home/DeleteUser/5
+        public ActionResult DeleteUser(string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var manager = new UserManager<ApplicationUser>(store);
+            var user = manager.FindById(id);
+            var deleteUser = manager.Delete(user);
+            return View("Users");
+        }
+
+        
         // GET: /Account/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)

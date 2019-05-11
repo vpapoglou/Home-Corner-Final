@@ -39,7 +39,7 @@ namespace HomeCorner.Controllers
         public ActionResult MyReservations()
         {
             var currentUserId = User.Identity.GetUserId();
-            var myReservations = db.Reservations.Where(i => i.User.Id == currentUserId).ToList();
+            var myReservations = db.Reservations.Include(i => i.House).Where(i => i.User.Id == currentUserId).ToList();
             //var myReservations = db.Reservations.Where(i => i.House.Id.ToString() == currentUserId).ToList();
             return View(myReservations);
         }
@@ -88,27 +88,29 @@ namespace HomeCorner.Controllers
                 DateTime givenEndDate = reservationToAdd.Reservation.EndDate;
 
 
-                if ((givenStartDate.Date > houseStartDate.Date) || (givenEndDate.Date < houseEndDate.Date))
+                if ((givenStartDate < houseStartDate) || (givenEndDate > houseEndDate))
+                //if ((givenStartDate.Date> houseStartDate.Date) || (givenEndDate.Date < houseEndDate.Date))
                 {
                     return RedirectToAction("Index", new { message = "Error" });
                 }
-                else
-                {
+                //else
+                //{
 
-                    foreach (Reservation reservations in db.Reservations.Where(n => n.House.Id == id))
+                foreach (Reservation reservations in db.Reservations.Where(n => n.House.Id == id))
+                {
+                    if (((givenStartDate == reservations.StartDate) && (givenEndDate == reservations.StartDate)) || ((givenStartDate < reservations.StartDate) && (givenEndDate < reservations.StartDate)) || ((givenStartDate < reservations.StartDate) && (givenEndDate > reservations.StartDate)) || ((givenStartDate > reservations.StartDate) && (givenEndDate < reservations.StartDate)) || ((givenStartDate > reservations.StartDate) && (givenStartDate < reservations.EndDate)))
+                    //if ((givenStartDate > reservations.StartDate) || (givenEndDate < reservations.EndDate))
                     {
-                        if ((givenStartDate.Date > reservations.StartDate.Date) || (givenEndDate.Date < reservations.EndDate.Date))
-                        {
-                            return RedirectToAction("Index", new { message = "Error" });
-                        }
+                        return RedirectToAction("Index", new { message = "Error" });
                     }
                 }
+                //}
 
                 reservationsViewModel.Reservation.House = house;
                 reservationsViewModel.Reservation.User = user;
                 db.Reservations.Add(reservationToAdd.Reservation);
                 db.SaveChanges();
-                
+
                 return RedirectToAction("Index", new { message = "Success" });
             }
             else
@@ -134,12 +136,13 @@ namespace HomeCorner.Controllers
             {
                 return View(db.Houses.Where(x => x.StartDate.ToString() == search || search == null).ToList());
             }
-            else {
-            if (!string.IsNullOrEmpty(message))
+            else
             {
-                ViewBag.message = message;
-            }
-            return View(db.Houses.ToList());
+                if (!string.IsNullOrEmpty(message))
+                {
+                    ViewBag.message = message;
+                }
+                return View(db.Houses.ToList());
             }
         }
 
@@ -295,7 +298,7 @@ namespace HomeCorner.Controllers
             {
                 var houseToAdd = housesViewModel;
 
-                if (TryUpdateModel(houseToAdd, "house", new string[] {"Features", "RegionId", "StartDate", "EndDate"}))
+                if (TryUpdateModel(houseToAdd, "house", new string[] { "Features", "RegionId", "StartDate", "EndDate" }))
                 {
                     var updatedFeatures = new HashSet<byte>(housesViewModel.SelectedFeatures);
 
@@ -314,18 +317,18 @@ namespace HomeCorner.Controllers
                     var fileName = Path.GetFileName(houseToAdd.House.ImageData.FileName);
                     var ext = Path.GetExtension(houseToAdd.House.ImageData.FileName);
                     if (allowedExtensions.Contains(ext))
-                        {
+                    {
                         string name = Path.GetFileNameWithoutExtension(fileName);
                         string myfile = Guid.NewGuid() + ext;
                         var path = Path.Combine(Server.MapPath("/HouseImages") + "/", myfile);
                         houseToAdd.House.ImageName = myfile;
                         houseToAdd.House.ImageData.SaveAs(path);
-                    }                 
+                    }
                     db.Entry(houseToAdd.House).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index", new { message = "Success" });
                 }
-                
+
             }
             //ViewBag.Id = new SelectList(db.Houses, "Id", "Title", housesViewModel.House.Id);
             ViewBag.RegionId = new SelectList(db.Regions, "RegionId", "RegionName");

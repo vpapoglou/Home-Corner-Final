@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<HomeCorner2.Models.Reservation>
 @{
     ViewBag.Title = "MyReservations";
+    Layout = "~/Views/Shared/_LoggedInLayout.cshtml";
 }
 
 <h2>MyReservations</h2>
@@ -49,7 +50,7 @@
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
                 <td>
-                    <img src="/Houses/RetrieveImage/@item.House.Id" alt="" height=100 width=200 />
+                    @*<img src="/HouseImages/@item.House.Id" alt="" height=100 width=200 />*@
                 </td>
                 <td>
                     @Html.ActionLink("Cancel", "Cancel", new { id = item.Id })

@@ -1,15 +1,11 @@
 ﻿@model IEnumerable<HomeCorner2.Models.ApplicationUser>
-
 @{
     Layout = "~/Views/Shared/_LoggedInLayout.cshtml";
 }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table id="users" class="table">
     <thead>
-        <tr>
+        <tr class="titles">
             <th>
                 User Full Name
             </th>
@@ -17,24 +13,29 @@
                 User Email
             </th>
             <th>
+                Username
+            </th>
+            <th>
                 User Address
             </th>
             <th>
                 User Phone
             </th>
+            <th>
+            </th>
         </tr>
     </thead>
-
     @foreach (var item in Model)
     {
         <tbody>
             <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
 
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.TK)
@@ -44,12 +45,69 @@
                     @Html.DisplayFor(modelItem => item.Telephone)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Details", "UserDetails", new { id = item.Id }) |
+                    <button class="btn btn-dark delete-user-button" data-url="Account/Delete/DeleteUser/@item.Id">Delete</button>
+                    <input type="button" value="Go Somewhere Else" onclick="location.href='@Url.Action("DeleteUser", "Account", new { id = item.Id})'" />
                 </td>
             </tr>
         </tbody>
     }
-
 </table>
+
+
+
+<div class="modal fade" id="deleteUserModal" data-url="">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title modal-font-title">Delete User</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <h3>Are you sure?</h3>
+                <button type="button" class="btn btn-danger" id="delete-user-confirm">YES</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
+
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        var $deleteUserButton = $('.delete-user-button');
+        var $deleteUserModal = $('#deleteUserModal');
+        var $deleteConfirm = $deleteUserModal.find('#delete-user-confirm');
+
+        $(document).ready(function (event) {
+
+            $deleteUserButton.on('click', function (event) {
+                console.log($(this).data('url'));
+                $deleteUserModal.data('url', $(this).data('url'));
+                $deleteUserModal.modal('show');
+            });
+
+            $deleteUserModal.on('hidden.bs.modal', function (event) {
+                $deleteUserModal.data('url', '');
+            });
+
+            $deleteConfirm.on('click', function (event) {
+                console.log($deleteUserModal.data('url'));
+                var request = $.ajax({
+                    url: $deleteUserModal.data('url'),
+                    method: 'POST',
+                    dataType: 'json'
+                });
+            });
+    </script>
+}

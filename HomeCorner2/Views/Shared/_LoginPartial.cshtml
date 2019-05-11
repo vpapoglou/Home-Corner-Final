@@ -8,34 +8,35 @@
     {
         @Html.AntiForgeryToken()
 
-<ul class="nav navbar-nav">
-    @if (User.IsInRole("CanManageHouses"))
-    {
-        <li>@Html.ActionLink("All Users", "Users", "Home", null, new { @class = "btn text-white" })</li>
-        <li>@Html.ActionLink("All Houses", "Index", "Houses", null, new { @class = "btn text-white" })</li>
-        <li>@Html.ActionLink("All Reservations", "Reservations", "Houses", null, new { @class = "btn text-white" })</li>
+        <ul class="nav navbar-nav">
 
-    }
-    <li>@Html.ActionLink("Search A Corner", "Index", "Houses", null, new { @class = "btn text-white" })</li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Profile
-        </a>
-        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-            @Html.ActionLink("Profile", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "btn text-white dropdown-item", title = "Manage" })
-            <div class="dropdown-divider"></div>
-            @Html.ActionLink("My Reservations", "Reservations", "Houses", null, new { @class = "btn text-white dropdown-item" })
-            @Html.ActionLink("My Houses", "MyHouses", "Houses", null, new { @class = "btn text-white dropdown-item" })
-        </div>
-    </li>
-    @*<li>@Html.ActionLink("My Houses", "Index", "Houses", null, new { @class = "btn text-white" })</li>
-        <li>@Html.ActionLink("My Reservations", "Index", "Houses", null, new { @class = "btn text-white" })</li>
-        <li>@Html.ActionLink("Profile", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "btn text-white", title = "Manage" })</li>*@
-    @*<li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "login-name-font", title = "Manage" })
-        </li>*@
-    <li><a href="javascript:document.getElementById('logoutForm').submit()" class="btn text-danger" role="button">Log off</a></li>
-</ul>
+            <li>@Html.ActionLink("Search A Corner", "Index", "Houses", null, new { @class = "btn text-white" })</li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Profile
+                </a>
+                <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                    @Html.ActionLink("Profile", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "btn text-white", title = "Manage" })
+                    <div class="dropdown-divider"></div>
+                    @Html.ActionLink("My Reservations", "MyReservations", "Houses", null, new { @class = "btn text-white" })
+                    @Html.ActionLink("My Houses", "MyHouses", "Houses", null, new { @class = "btn text-white" })
+                </div>
+            </li>
+            @if (User.IsInRole("CanManageHouses"))
+            {
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Administration
+                    </a>
+                    <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                        @Html.ActionLink("All Users", "Users", "Home", null, new { @class = "btn text-white" })
+                        @Html.ActionLink("All Houses", "Index", "Houses", null, new { @class = "btn text-white" })
+                        @Html.ActionLink("All Reservations", "Reservations", "Houses", null, new { @class = "btn text-white" })
+                    </div>
+                </li>
+            }
+            <li><a href="javascript:document.getElementById('logoutForm').submit()" class="btn text-danger" role="button">Log off</a></li>
+        </ul>
     }
 }
 else
