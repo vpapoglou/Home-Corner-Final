@@ -6,15 +6,76 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 
-namespace HomeCorner2
+class TestCreate
 {
-    public class TestCreate
+    static void Main()
     {
-        public void Test() {
-            IWebDriver driver = new ChromeDriver();
-            driver.Navigate().GoToUrl("localhost:51977/Houses");
-            Thread.Sleep(5000);
-            driver.Quit();
-        }       
+        string url = "localhost:51977";
+        IWebDriver driver = new ChromeDriver();
+        driver.Navigate().GoToUrl(url);
+        Thread.Sleep(1000);
+        IWebElement login = driver.FindElement(By.Id("login-modal-toggle-button"));
+        login.Click();
+        Thread.Sleep(1000);
+        IWebElement email = driver.FindElement(By.Id("Email"));
+        email.SendKeys("vpapoglou@gmail.com");
+        Thread.Sleep(1000);
+        IWebElement pass = driver.FindElement(By.Id("Password"));
+        pass.SendKeys("123456");
+        Thread.Sleep(1000);
+        IWebElement click = driver.FindElement(By.XPath("//*[@id='loginForm']/form/div[4]/div/input"));
+        click.Click();
+        Thread.Sleep(1000);
+        IWebElement houses = driver.FindElement(By.XPath("//*[@id='logoutForm']/ul/li[2]/a"));
+        houses.Click();
+        Thread.Sleep(1000);
+        IWebElement create = driver.FindElement(By.XPath("//*[@id='main-body']/div/p/a"));
+        create.Click();
+        Thread.Sleep(1000);
+        IWebElement create2 = driver.FindElement(By.XPath("//*[@id='House_Title']"));
+        create2.SendKeys("White House on the Beach");
+        Thread.Sleep(1000);
+        IWebElement create3 = driver.FindElement(By.XPath("//*[@id='House_Description']"));
+        create3.SendKeys("Nice House with View on the sea");
+        Thread.Sleep(1000);
+        IWebElement create4 = driver.FindElement(By.XPath("//*[@id='House_RegionId']"));
+        create4.Click();
+        Thread.Sleep(1000);
+        IWebElement create5 = driver.FindElement(By.XPath("//*[@id='House_RegionId']/option[8]"));
+        create5.Click();
+        Thread.Sleep(1000);
+        IWebElement create6 = driver.FindElement(By.XPath("//*[@id='House_PostalCode']"));
+        create6.SendKeys("55100");
+        Thread.Sleep(1000);
+        IWebElement create7 = driver.FindElement(By.XPath("//*[@id='House_Address']"));
+        create7.SendKeys("Agiou Paulou");
+        Thread.Sleep(1000);
+        IWebElement create8 = driver.FindElement(By.XPath("//*[@id='House_AddressNumber']"));
+        create8.SendKeys("15");
+        Thread.Sleep(1000);
+        IWebElement create9 = driver.FindElement(By.XPath("//*[@id='House_Occupancy']"));
+        create9.SendKeys("5");
+        Thread.Sleep(1000);
+        IWebElement create10 = driver.FindElement(By.XPath("//*[@id='House_Price']"));
+        create10.SendKeys("80.00");
+        Thread.Sleep(1000);
+        IWebElement create11 = driver.FindElement(By.XPath("//*[@id='main-body']/div[1]/form/div/div[9]/div[1]/div/span/button"));
+        create11.Click();
+        IWebElement create12 = driver.FindElement(By.XPath("//*[@id='StartDate']"));
+        create12.SendKeys("02-07-2019");
+        Thread.Sleep(1000);
+        IWebElement create13 = driver.FindElement(By.XPath("//*[@id='main-body']/div[1]/form/div/div[9]/div[2]/div/span/button"));
+        create13.Click();
+        IWebElement create14 = driver.FindElement(By.XPath("//*[@id='EndDate']"));
+        create14.SendKeys("10-07-2019");
+        Thread.Sleep(1000);
+        IWebElement create15 = driver.FindElement(By.XPath("//*[@id='SelectedFeatures']/option[4]"));
+        create15.Click();
+        Thread.Sleep(1000);
+        IWebElement create16 = driver.FindElement(By.XPath("//*[@id='file']"));
+        create16.Click();
+        Thread.Sleep(10000);
+        IWebElement create17 = driver.FindElement(By.XPath("//*[@id='submit-create-house']"));
+        create17.Click();
     }
 }
