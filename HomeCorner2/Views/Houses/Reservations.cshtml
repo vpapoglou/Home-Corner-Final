@@ -1,5 +1,5 @@
-﻿@model IEnumerable<HomeCorner2.Models.Reservation>
-
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<HomeCorner2.Models.Reservation>
 
 @{
     /**/
@@ -7,32 +7,36 @@
     ViewBag.Title = "Reservations";
     Layout = "~/Views/Shared/_LoggedInLayout.cshtml";
 }
-<h2>Reservations</h2>
+
+<p>
+    <h2> <span class="float-left">Reservations</span></h2>
+    <span class="float-right">@Html.ActionLink("Create New", "Create")</span>
+</p>
+<hr />
 <table id="reservations" class="table">
     <thead>
-        <tr>
+        <tr class="titles">
             <th>
-                @Html.DisplayNameFor(model => model.User.FirstName)
+                First Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User.LastName)
+                Last Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.House.Title)
+                Title
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartDate)
+                Arrival Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndDate)
+                Departure date
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.House.Images)
-            </th>
-
+            @*<th>
+                    @Html.DisplayNameFor(model => model.House.Images)
+                </th>*@
+            <th> </th>
         </tr>
     </thead>
-
     @foreach (var item in Model)
     {
         <tbody>
@@ -53,10 +57,10 @@
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
                 <td>
-                    <img src="/Houses/RetrieveImage/@item.House.Id" alt="" height=100 width=200 />
+                    <img src="../../HouseImages8/@item.House.Id" alt="" height=100 width=200 />
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Cancel", "Delete", new { id = item.Id })
                 </td>
             </tr>
         </tbody>

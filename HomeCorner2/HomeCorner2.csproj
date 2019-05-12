@@ -346,6 +346,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Houses\DeleteReservation.cshtml" />
     <Content Include="Views\Houses\Cancel.cshtml" />
+    <Content Include="Views\Houses\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

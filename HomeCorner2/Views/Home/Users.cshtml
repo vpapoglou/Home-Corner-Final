@@ -3,6 +3,11 @@
     Layout = "~/Views/Shared/_LoggedInLayout.cshtml";
 }
 
+<p>
+    <h2> <span class="float-left">Users</span></h2>
+</p>
+<hr />
+
 <table id="users" class="table">
     <thead>
         <tr class="titles">
@@ -29,13 +34,14 @@
     {
         <tbody>
             <tr>
-                <td></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
-
+                    @Html.DisplayFor(modelItem => item.YourUserName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.TK)

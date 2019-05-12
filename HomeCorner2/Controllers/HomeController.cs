@@ -15,6 +15,7 @@ namespace HomeCorner2.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        
         public ActionResult Index()
         {
 

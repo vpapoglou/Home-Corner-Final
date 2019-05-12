@@ -25,7 +25,7 @@ namespace HomeCorner.Controllers
 
         public ActionResult Reservations()
         {
-            var reservations = db.Reservations.Include(i => i.House).ToList();
+            var reservations = db.Reservations.Include(i => i.House).Include(j => j.User).ToList();
             return View(reservations);
         }
 

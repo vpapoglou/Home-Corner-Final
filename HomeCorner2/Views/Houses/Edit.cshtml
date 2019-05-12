@@ -3,7 +3,6 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_LoggedInLayout.cshtml";
 }
-<h2>Edit</h2>
 
 @using (Html.BeginForm("Edit", "Houses", FormMethod.Post, new
 {
@@ -14,7 +13,7 @@
 
 <div class="row mt-5">
     <div class="col-lg-8">
-        <img class="rounded image-details" src="..\..\HouseImages\@Model.House.ImageName" alt="@Model.House.Title" />
+        <img class="rounded img-thumbnail edit-image" src="..\..\HouseImages\@Model.House.ImageName" alt="@Model.House.Title" />
     </div>
     <div class="col-lg-4">
         <h4>Editing House</h4>

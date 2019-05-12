@@ -1,55 +1,29 @@
 ﻿@model IEnumerable<HomeCorner2.Models.House>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Search";
     Layout = "~/Views/Shared/_LoggedInLayout.cshtml";
 }
 
-
-<div class="jumbotron mt-3">
-    @using (Html.BeginForm("Index", "Houses", FormMethod.Get))
-    {
-        <div>Search Option:</div>
-        <div class="form-check-inline">
-            <label class="form-check-label">
-                @Html.RadioButton("option", "Region", new { htmlAttributes = new { @class = "form-check-input" } })Region
-            </label>
-        </div>
-        <div class="form-check-inline">
-            <label class="form-check-label">
-                @Html.RadioButton("option", "Occupancy", new { htmlAttributes = new { @class = "form-check-input" } })Occupancy
-            </label>
-        </div>
-        <div class="form-check-inline">
-            <label class="form-check-label">
-                @Html.RadioButton("option", "StartDate", new { htmlAttributes = new { @class = "form-check-input" } })Arrival Date
-            </label>
-        </div>
-        <div class="form-check-inline">
-            <label class="form-check-label">
-                @Html.TextBox("search")
-                <button type="submit" class="btn btn-dark" name="Search">Search</button>
-            </label>
-        </div>
-
-        //the following are search options
-        @*<b> Search Option: </b> @Html.RadioButton("option", "Region") <text>Region</text> @Html.RadioButton("option", "Occupancy")<text>Occupancy</text>
-            @Html.RadioButton("option", "StartDate")<text>Start Date</text> @Html.TextBox("search")<input type="submit" name="submit" value="Search" />*@
-    }
-</div>
+@using (Html.BeginForm("Index", "Houses", FormMethod.Get))
+{
+    //the following are search options
+    <b> Search Option: </b> @Html.RadioButton("option", "Region") <text>Region</text> @Html.RadioButton("option", "Occupancy")<text>Occupancy</text>
+    @Html.RadioButton("option", "StartDate")<text>Start Date</text> @Html.TextBox("search")<input type="submit" name="submit" value="Search" />
+}
 
 @if (Model.Count() == 0)
 {<p colspan="3" class="text-danger">Records not found </p>
 }
 
+<h2>Houses</h2>
 @if (User.IsInRole("CanManageHouses"))
 {
-    <hr />
     <p>
-        <span class="float-right">@Html.ActionLink("Create New", "Create")</span>
+        @Html.ActionLink("Create New", "Create")
     </p>
     <table id="houses" class="table">
         <thead>
-            <tr class="titles">
+            <tr>
                 <th>
                     Image
                 </th>
@@ -62,10 +36,6 @@
                 <th>
                     Owner
                 </th>
-                <th>
-                    Owner's Email
-                </th>
-                <th></th>
             </tr>
         </thead>
         @foreach (var item in Model)
@@ -85,7 +55,6 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Region.RegionName),<br />@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.AddressNumber)
                     </td>
-                    <td></td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Owner.Email)
                     </td>
@@ -147,3 +116,5 @@ else
         }
     </table>
 }
+
+
