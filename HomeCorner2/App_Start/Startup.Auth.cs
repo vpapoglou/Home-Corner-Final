@@ -56,7 +56,7 @@ namespace HomeCorner2
 
             app.UseFacebookAuthentication(
                appId: "848201605545584",
-               appSecret: "88ff746b96319bf4ee3fe3a97c9a304f");
+               appSecret: "");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

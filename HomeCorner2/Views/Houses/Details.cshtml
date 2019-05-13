@@ -34,7 +34,7 @@
                 }
                 else
                 {
-                    <span>Persons</span>
+                    <span>People</span>
                 }
             </dd>
             <dt>
@@ -65,6 +65,30 @@
             <dd>
                 @Html.DisplayFor(model => model.House.Description)
             </dd>
+            <dt>
+                Owner
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.House.Owner.YourUserName)
+            </dd>
+            <dt>
+                Owner's email
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.House.Owner.Email)
+            </dd>
+            <dt>
+                Availability Starts:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.House.StartDate.Date)
+            </dd>
+            <dt>
+                Availability Ends:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.House.EndDate.Date)
+            </dd>
 
             <dt>
                 @if (User.IsInRole("CanManageHouses"))
@@ -75,15 +99,15 @@
                 }
                 else
                 {
-                     @Html.ActionLink("Back to List", "Index")
-                     @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id, @class = "btn btn-dark" })
-                     @*<button class="btn btn-dark" data-toggle="modal" data-target="#reservationModal"">
-                       Book Now!
-                    </button>*@
+                    @Html.ActionLink("Back to List", "Index")
+                    @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id, @class = "btn btn-dark" })
+                    @*<button class="btn btn-dark" data-toggle="modal" data-target="#reservationModal"">
+                   Book Now!
+                </button>*@
                 }
             </dt>
 
-           
+
 
         </dl>
     </div>

@@ -65,6 +65,12 @@
                 <th>
                     Owner's Email
                 </th>
+                <th>
+                    Availability Starts:
+                </th>
+                <th>
+                    Availability Ends:
+                </th>
                 <th></th>
             </tr>
         </thead>
@@ -85,12 +91,18 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Region.RegionName),<br />@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.AddressNumber)
                         </td>
-                        <td></td>
+
                         <td>
                             @Html.DisplayFor(modelItem => item.Owner.YourUserName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Owner.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate.Date)
                         </td>
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

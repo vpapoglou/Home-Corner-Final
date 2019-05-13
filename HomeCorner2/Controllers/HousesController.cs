@@ -122,6 +122,7 @@ namespace HomeCorner.Controllers
         // GET: Houses
         public ActionResult Index(string message, string option, string search)
         {
+            var AllHouses = db.Houses.Include(i => i.Owner).ToList();
             //if a user choose the radio button option as Subject  
             if (option == "Region")
             {
@@ -142,7 +143,7 @@ namespace HomeCorner.Controllers
                 {
                     ViewBag.message = message;
                 }
-                return View(db.Houses.ToList());
+                return View(AllHouses);
             }
         }
 
@@ -236,6 +237,7 @@ namespace HomeCorner.Controllers
             var HousesViewModel = new HousesViewModel();
             {
                 HousesViewModel.House = db.Houses.Include(i => i.Features).First(i => i.Id == id);
+                HousesViewModel.House = db.Houses.Include(i => i.Owner).First(i => i.Id == id);
             }
 
             if (HousesViewModel.House == null)
