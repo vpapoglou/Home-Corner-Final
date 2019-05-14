@@ -4,117 +4,84 @@
     Layout = "~/Views/Shared/_LoggedInLayout.cshtml";
 }
 
-@using (Html.BeginForm("Index", "Houses", FormMethod.Get))
-{
-    //the following are search options
-    <b> Search Option: </b> @Html.RadioButton("option", "Region") <text>Region</text> @Html.RadioButton("option", "Occupancy")<text>Occupancy</text>
-    @Html.RadioButton("option", "StartDate")<text>Start Date</text> @Html.TextBox("search")<input type="submit" name="submit" value="Search" />
-}
+<div class="jumbotron mt-3">
+    @using (Html.BeginForm("Search", "Houses", FormMethod.Get))
+    {
+        <div class="d-flex justify-content-center">
+            <div class="titles mr-2">Search Option:</div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    @Html.RadioButton("option", "Region", new { htmlAttributes = new { @class = "form-check-input" } })Region
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    @Html.RadioButton("option", "PostalCode", new { htmlAttributes = new { @class = "form-check-input" } })Postal Code
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    @Html.RadioButton("option", "Occupancy", new { htmlAttributes = new { @class = "form-check-input" } })Occupancy
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    @Html.RadioButton("option", "Price", new { htmlAttributes = new { @class = "form-check-input" } }) Price
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    @Html.RadioButton("option", "StartDate", new { htmlAttributes = new { @class = "form-check-input" } })Arrival Date
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    @Html.RadioButton("option", "EndDate", new { htmlAttributes = new { @class = "form-check-input" } }) Departure Date
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    @Html.RadioButton("option", "AllHouses", new { htmlAttributes = new { @class = "form-check-input" } }) All Home Corners
+                </label>
+            </div>
+        </div>
+        <div class="form-check-inline d-flex justify-content-center">
+            <label class="form-check-label">
+                @Html.TextBox("search")
+                <button type="submit" class="btn btn-dark" name="Search">Search</button>
+            </label>
+        </div>
+
+        //the following are search options
+        @*<b> Search Option: </b> @Html.RadioButton("option", "Region") <text>Region</text> @Html.RadioButton("option", "Occupancy")<text>Occupancy</text>
+            @Html.RadioButton("option", "StartDate")<text>Start Date</text> @Html.TextBox("search")<input type="submit" name="submit" value="Search" />*@
+    }
+</div>
 
 @if (Model.Count() == 0)
 {<p colspan="3" class="text-danger">Records not found </p>
 }
 
-<h2>Houses</h2>
-@if (User.IsInRole("CanManageHouses"))
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table id="houses" class="table">
-        <thead>
-            <tr>
-                <th>
-                    Image
-                </th>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Address
-                </th>
-                <th>
-                    Owner
-                </th>
-            </tr>
-        </thead>
-        @foreach (var item in Model)
-        {
-            <tbody>
-                @if (Model.Count() == 0)
-                {
-                    <tr> <td colspan="3"> Records not found </td></tr>
-                }
-                <tr>
-                    <td>
-                        <img src="..\..\HouseImages\@item.ImageName" class="img-thumbnail" height=50 width=100 />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Region.RegionName),<br />@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.AddressNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Owner.Email)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                        @Html.ActionLink("Book Now", "Book", new { id = item.Id })
-                    </td>
-                </tr>
-            </tbody>
-        }
-    </table>
-}
-else
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table id="houses" class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Region)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Images)
-                </th>
-            </tr>
-        </thead>
-        @foreach (var item in Model)
-        {
-            <tbody>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Region.RegionName)
-                    </td>
-                    <td>
-                        <img src="..\..\HouseImages\@item.ImageName" class="img-thumbnail" height=50 width=100 />
-                    </td>
-                    <td>
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Book Now", "Details", new { id = item.Id })
-                    </td>
-                </tr>
-            </tbody>
-        }
-    </table>
-}
-
-
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-6 d-flex justify-content-center mb-md-3 mb-sm-3 mb-3">
+            <div class="card home-cards h-100">
+                <div class="card-avatar">
+                    <img class="card-img-top" src="..\HouseImages\@item.ImageName" alt="@item.Title">
+                </div>
+                <div class="card-body card-block d-flex flex-column">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Price)€</p>
+                    <input type="button" class="btn btn-dark text-truncate mt-auto" value="More Details" onclick="redirectToDetails(@item.Id);" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    function redirectToDetails(houseId) {
+        document.location = '../Houses/Details/' + houseId;
+    }
+</script>

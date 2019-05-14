@@ -4,7 +4,7 @@
 }
 
 <p>
-    <h2> <span class="float-left">Users</span></h2>
+    <h2> <span class="float-right">Users</span></h2>
 </p>
 <hr />
 
@@ -51,9 +51,10 @@
                     @Html.DisplayFor(modelItem => item.Telephone)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "UserDetails", new { id = item.Id }) |
-                    <button class="btn btn-dark delete-user-button" data-url="Account/Delete/DeleteUser/@item.Id">Delete</button>
-                    <input type="button" value="Go Somewhere Else" onclick="location.href='@Url.Action("DeleteUser", "Account", new { id = item.Id})'" />
+                    @*@Html.ActionLink("Details", "UserDetails", new { id = item.Id }) |*@
+                    <button class="btn btn-outline-danger delete-user-button" onclick="location.href='@Url.Action("DeleteUser", "Account", new { id = item.Id})'">Delete</button>
+                    @*<button class="btn btn-danger delete-user-button" data-url="Account/Delete/DeleteUser/@item.Id">Delete</button>*@
+                    @*<input type="button" value="Go Somewhere Else" onclick="location.href='@Url.Action("DeleteUser", "Account", new { id = item.Id})'" />*@
                 </td>
             </tr>
         </tbody>

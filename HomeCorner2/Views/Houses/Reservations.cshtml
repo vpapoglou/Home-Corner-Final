@@ -9,8 +9,8 @@
 }
 
 <p>
-    <h2> <span class="float-left">Reservations</span></h2>
-    <span class="float-right">@Html.ActionLink("Create New", "Create")</span>
+    <h2> <span class="float-right">Reservations</span></h2>
+    @*<span class="float-right">@Html.ActionLink("Create New", "Create")</span>*@
 </p>
 <hr />
 <table id="reservations" class="table">
@@ -31,8 +31,14 @@
             <th>
                 Departure date
             </th>
+            <th>
+                Owner's Name
+            </th>
+            <th>
+                Owner's Email
+            </th>
             @*<th>
-                    @Html.DisplayNameFor(model => model.House.Images)
+                    Image
                 </th>*@
             <th> </th>
         </tr>
@@ -57,10 +63,17 @@
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
                 <td>
-                    <img src="../../HouseImages8/@item.House.Id" alt="" height=100 width=200 />
+                    @Html.DisplayFor(modelItem => item.House.Owner.FirstName)
+                    @Html.DisplayFor(modelItem => item.House.Owner.LastName)
                 </td>
                 <td>
-                    @Html.ActionLink("Cancel", "Delete", new { id = item.Id })
+                    @Html.DisplayFor(modelItem => item.House.Owner.Email)
+                </td>
+                @*<td>
+                        <img src="..\..\HouseImages\@item.House.ImageName" class="img-thumbnail" height=50 width=100 />
+                    </td>*@
+                <td>
+                    @Html.ActionLink("Cancel", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-danger", role = "button" })
                 </td>
             </tr>
         </tbody>

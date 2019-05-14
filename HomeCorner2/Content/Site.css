@@ -11,6 +11,14 @@
     padding-right: 15px;
 }
 
+/*.jumbotron-background {
+    background-image: url("../images/images.png");
+    background-color:transparent !important;
+}*/
+
+.display-inline {
+    display: inline;
+}
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -23,6 +31,10 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.aboutus-card {
+    width: 70%;
 }
 
 #main-body {
@@ -94,5 +106,3 @@ textarea {
     background-repeat: no-repeat;
     background-size: cover;
 }
-
-

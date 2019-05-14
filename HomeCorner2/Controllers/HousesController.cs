@@ -18,6 +18,7 @@ using System.Collections;
 
 namespace HomeCorner.Controllers
 {
+
     public class HousesController : Controller
     {
 
@@ -32,14 +33,14 @@ namespace HomeCorner.Controllers
         public ActionResult MyHouses()
         {
             var currentUserId = User.Identity.GetUserId();
-            var myHouses = db.Houses.Where(i => i.OwnerId.ToString() == currentUserId).ToList();
+            var myHouses = db.Houses.Where(i => i.OwnerId.ToString() == currentUserId).OrderByDescending(house => house.Id);
             return View(myHouses);
         }
 
         public ActionResult MyReservations()
         {
             var currentUserId = User.Identity.GetUserId();
-            var myReservations = db.Reservations.Include(i => i.House).Where(i => i.User.Id == currentUserId).ToList();
+            var myReservations = db.Reservations.Include(i => i.House).Where(i => i.User.Id == currentUserId).OrderByDescending(reservation => reservation.Id);
             //var myReservations = db.Reservations.Where(i => i.House.Id.ToString() == currentUserId).ToList();
             return View(myReservations);
         }
@@ -119,6 +120,47 @@ namespace HomeCorner.Controllers
             }
         }
 
+        public ActionResult Search(string message, string option, string search)
+        {
+            if (option == "Region")
+            {
+                //Index action method will return a view with a student records based on what a user specify the value in textbox  
+                return View(db.Houses.Where(x => x.Region.RegionName == search || search == null).OrderByDescending(house => house.Id));
+            }
+            else if (option == "PostalCode")
+            {
+                return View(db.Houses.Where(x => x.PostalCode.ToString() == search || search == null).OrderByDescending(house => house.Id));
+            }
+            else if (option == "Occupancy")
+            {
+                return View(db.Houses.Where(x => x.Occupancy.ToString() == search || search == null).OrderByDescending(house => house.Id));
+            }
+            else if (option == "Price")
+            {
+                return View(db.Houses.Where(x => x.Price.ToString() == search || search == null).OrderByDescending(house => house.Id));
+            }
+            else if (option == "StartDate")
+            {
+                return View(db.Houses.Where(x => x.StartDate.ToString() == search || search == null).OrderByDescending(house => house.Id));
+            }
+            else if (option == "EndDate")
+            {
+                return View(db.Houses.Where(x => x.EndDate.ToString() == search || search == null).OrderByDescending(house => house.Id));
+            }
+            else if (option == "AllHouses")
+            {
+                return View(db.Houses.OrderByDescending(house => house.Id));
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(message))
+                {
+                    ViewBag.message = message;
+                }
+                return View(db.Houses.Include(i => i.Owner).OrderByDescending(house => house.Id));
+            }
+        }
+
         // GET: Houses
         public ActionResult Index(string message, string option, string search)
         {
@@ -129,13 +171,29 @@ namespace HomeCorner.Controllers
                 //Index action method will return a view with a student records based on what a user specify the value in textbox  
                 return View(db.Houses.Where(x => x.Region.RegionName == search || search == null).ToList());
             }
+            else if (option == "PostalCode")
+            {
+                return View(db.Houses.Where(x => x.PostalCode.ToString() == search || search == null).ToList());
+            }
             else if (option == "Occupancy")
             {
                 return View(db.Houses.Where(x => x.Occupancy.ToString() == search || search == null).ToList());
             }
+            else if (option == "Price")
+            {
+                return View(db.Houses.Where(x => x.Price.ToString() == search || search == null).ToList());
+            }
             else if (option == "StartDate")
             {
                 return View(db.Houses.Where(x => x.StartDate.ToString() == search || search == null).ToList());
+            }
+            else if (option == "EndDate")
+            {
+                return View(db.Houses.Where(x => x.EndDate.ToString() == search || search == null).ToList());
+            }
+            else if (option == "AllHouses")
+            {
+                return View(db.Houses.OrderByDescending(house => house.Id));
             }
             else
             {
@@ -145,6 +203,29 @@ namespace HomeCorner.Controllers
                 }
                 return View(AllHouses);
             }
+
+
+            //if (option == "Region")
+            //{
+            //    //Index action method will return a view with a student records based on what a user specify the value in textbox  
+            //    return View(db.Houses.Where(x => x.Region.RegionName == search || search == null).ToList());
+            //}
+            //else if (option == "Occupancy")
+            //{
+            //    return View(db.Houses.Where(x => x.Occupancy.ToString() == search || search == null).ToList());
+            //}
+            //else if (option == "StartDate")
+            //{
+            //    return View(db.Houses.Where(x => x.StartDate.ToString() == search || search == null).ToList());
+            //}
+            //else
+            //{
+            //    if (!string.IsNullOrEmpty(message))
+            //    {
+            //        ViewBag.message = message;
+            //    }
+            //    return View(db.Houses.Include(i => i.Owner).ToList());
+            //}
         }
 
         public ActionResult Create()
@@ -236,8 +317,7 @@ namespace HomeCorner.Controllers
 
             var HousesViewModel = new HousesViewModel();
             {
-                HousesViewModel.House = db.Houses.Include(i => i.Features).First(i => i.Id == id);
-                HousesViewModel.House = db.Houses.Include(i => i.Owner).First(i => i.Id == id);
+                HousesViewModel.House = db.Houses.Include(i => i.Features).Include(j => j.Owner).First(i => i.Id == id);
             }
 
             if (HousesViewModel.House == null)

@@ -10,24 +10,26 @@ using System.Web.Mvc;
 
 namespace HomeCorner2.Controllers
 {
-    [AllowAnonymous]
+    
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        
+        [AllowAnonymous]
         public ActionResult Index()
         {
 
             return View();
         }
 
+        [Authorize]
         public ActionResult Users()
         {
             var allUsers = db.Users.ToList();
             return View(allUsers);
         }
 
+        [Authorize]
         public ActionResult Home()
         {
             var latestHouses = db.Houses.OrderByDescending(house => house.Id).Take(6);
@@ -35,6 +37,7 @@ namespace HomeCorner2.Controllers
             return View(latestHouses);
         }
 
+        [AllowAnonymous]
         public ActionResult AboutUs()
         {
             ViewBag.Message = "Your application description page.";
@@ -42,6 +45,7 @@ namespace HomeCorner2.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult ContactUs()
         {
             ViewBag.Message = "Your contact page.";

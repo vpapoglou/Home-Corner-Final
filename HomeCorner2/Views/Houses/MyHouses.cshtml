@@ -1,4 +1,6 @@
-﻿@model IEnumerable<HomeCorner2.Models.House>
+﻿@*@model IEnumerable<HomeCorner2.Models.House>*@
+@model HomeCorner2.ViewModels.HousesViewModel
+
 @{
     ViewBag.Title = "MyHouses";
     Layout = "~/Views/Shared/_LoggedInLayout.cshtml";
@@ -7,9 +9,9 @@
 <h2>Houses</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add House", "Create")
 </p>
-<table id="houses" class="table">
+@*<table id="houses" class="table">
     <thead>
         <tr>
             <th>
@@ -54,4 +56,88 @@
         </tbody>
     }
 
-</table>
+</table>*@
+
+<div class="row mt-5">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-9">
+            <img class="rounded image-details" src="..\..\HouseImages\@item.ImageName" alt="@item.Title" />
+        </div>
+        <div class="col-lg-3">
+            <h4>@item.Title</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                @*@Html.Partial("_HousesDataTable", Model.House)*@
+                <dt>
+                    Address
+                </dt>
+                <dd>
+                    @item.Region.RegionName, @item.PostalCode
+                    <br />
+                    @item.Address @item.AddressNumber,
+                </dd>
+                <dt>
+                    Maximum Occupancy
+                </dt>
+                <dd>
+                    @item.Occupancy
+                    @if (@item.Occupancy <= 1)
+                    {
+                        <span>Person</span>
+                    }
+                    else
+                    {
+                        <span>Persons</span>
+                    }
+                </dd>
+                <dt>
+                    Price/Night
+                </dt>
+                <dd>
+                    @item.Price€
+                </dd>
+                <dt>
+                    Extra Features
+                </dt>
+                @if (Model.SelectedFeatures == null)
+                {
+                    <dd>No Features</dd>
+                }
+                else
+                {
+                    foreach (var feature in item.Features)
+                    {
+                        <dd>
+                            @Html.DisplayFor(model => feature.Feature)
+                        </dd>
+                    }
+                }
+                <dt>
+                    Description
+                </dt>
+                <dd>
+                    @item.Description
+                </dd>
+                <dt>
+                    @if (User.IsInRole("CanManageHouses"))
+                    {
+                        @Html.ActionLink("Back to List", "Index")
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.House.Id, @class = "btn btn-dark" })
+                        @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id, @class = "btn btn-dark" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Back to List", "Index")
+                        @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id, @class = "btn btn-dark" })
+                        @*<button class="btn btn-dark" data-toggle="modal" data-target="#reservationModal"">
+                               Book Now!
+                            </button>*@
+                    }
+                </dt>
+
+            </dl>
+        </div>
+    }
+</div>
+
