@@ -79,6 +79,14 @@ textarea {
     height: 90%;
 }
 
+.image-reservations img{
+    display: block;
+    max-width: 230px;
+    max-height: 95px;
+    width: auto;
+    height: auto;
+}
+
 .logo-font, .modal-font-title, .titles {
     font-family: 'Annie Use Your Telescope', cursive;
     font-size: x-large;
@@ -105,4 +113,8 @@ textarea {
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.information-labels {
+    font-weight: 700;
 }
