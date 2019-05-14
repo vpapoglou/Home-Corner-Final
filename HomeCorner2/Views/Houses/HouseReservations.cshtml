@@ -9,8 +9,7 @@
 }
 
 <p>
-    <h2> <span class="float-right">Reservations</span></h2>
-    @*<span class="float-right">@Html.ActionLink("Create New", "Create")</span>*@
+    <h2> <span class="float-right">House Reservations</span></h2>
 </p>
 <hr />
 <div class="table-responsive">
@@ -24,23 +23,14 @@
                     Last Name
                 </th>
                 <th>
-                    Title
-                </th>
-                <th>
                     Arrival Date
                 </th>
                 <th>
                     Departure date
                 </th>
                 <th>
-                    Owner's Name
+                    Renter's Email
                 </th>
-                <th>
-                    Owner's Email
-                </th>
-                @*<th>
-                        Image
-                    </th>*@
                 <th> </th>
             </tr>
         </thead>
@@ -55,24 +45,14 @@
                         @Html.DisplayFor(modelItem => item.User.LastName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.House.Title)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.StartDate)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.EndDate)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.House.Owner.FirstName)
-                        @Html.DisplayFor(modelItem => item.House.Owner.LastName)
+                        @Html.DisplayFor(modelItem => item.User.Email)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.House.Owner.Email)
-                    </td>
-                    @*<td>
-                            <img src="..\..\HouseImages\@item.House.ImageName" class="img-thumbnail" height=50 width=100 />
-                        </td>*@
                     <td>
                         @Html.ActionLink("Cancel", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-danger", role = "button" })
                     </td>

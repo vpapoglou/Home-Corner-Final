@@ -30,6 +30,12 @@ namespace HomeCorner.Controllers
             return View(reservations);
         }
 
+        public ActionResult HouseReservations(string id)
+        {
+            var reservations = db.Reservations.Include(i => i.House).Include(j => j.User).Where(x => x.House.Id.ToString() == id).ToList();
+            return View(reservations);
+        }
+
         public ActionResult MyHouses()
         {
             var currentUserId = User.Identity.GetUserId();
@@ -252,7 +258,7 @@ namespace HomeCorner.Controllers
             housesViewModel.Owner = user;
             var allowedExtensions = new[]
             {
-                ".spng", ".jpg", ".jpeg"
+                ".png", ".jpg", ".jpeg"
             };
 
 
@@ -373,7 +379,7 @@ namespace HomeCorner.Controllers
         public ActionResult Edit(HousesViewModel housesViewModel)
         {
             var allowedExtensions = new[]{
-                ".spng", ".jpg", ".jpeg"
+                ".png", ".jpg", ".jpeg"
                 };
 
             if (ModelState.IsValid)
@@ -429,21 +435,26 @@ namespace HomeCorner.Controllers
             House house = db.Houses.Find(id);
             if (house == null)
             {
-                return HttpNotFound();
+                return Json(new { Status = "error", Error = "House not found" }, JsonRequestBehavior.AllowGet);
             }
-            return View(house);
+            //return View(house);
+            return Json(new { Status = "ok" }, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Houses/Delete/5 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [Authorize(Roles = RoleName.CanManageHouses)]
-        public ActionResult DeleteConfirmed(int id)
+        public JsonResult DeleteConfirmed(int id)
         {
             House house = db.Houses.Find(id);
+            if (house == null)
+            {
+                return Json(new { Status = "error", Error = "House not found" }, JsonRequestBehavior.AllowGet);
+            }
             db.Houses.Remove(house);
             db.SaveChanges();
-            return RedirectToAction("Index", new { message = "Success" });
+            return Json(new { Status = "ok" }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Reservations/Cancel/5

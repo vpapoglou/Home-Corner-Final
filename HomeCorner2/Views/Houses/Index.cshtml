@@ -63,118 +63,207 @@
 {<p colspan="3" class="text-danger">Records not found </p>
 }
 
+
+
 @if (User.IsInRole("CanManageHouses"))
 {
     <hr />
     <p>
         <span class="float-right">@Html.ActionLink("Add House", "Create", new { id = "addnewhouse" })</span>
     </p>
+    <div class="table-responsive">
+        <table id="houses" class="table table-sm">
+            <thead>
+                <tr class="titles">
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                    <th>
+                        Owner
+                    </th>
+                    <th>
+                        Owner's Email
+                    </th>
+                    <th>
+                        Available From:
+                    </th>
+                    <th>
+                        Available To:
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    @if (Model.Count() == 0)
+                    {
+                        <tr> <td colspan="3"> Records not found </td></tr>
+                    }
+                    <tr>
+                        <td>
+                            <img src="..\..\HouseImages\@item.ImageName" class="img-thumbnail" height=50 width=100 />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Region.RegionName),<br />@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.AddressNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Owner.YourUserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Owner.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-outline-primary btn-sm", role = "button" })
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-outline-secondary btn-sm", role = "button" })
+                            <button type="button" class="btn btn-outline-danger btn-sm show-delete-modal-button" data-url="Delete/@item.Id">Delete</button>
+                            @*@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-danger btn-sm delete-toggle-button", role = "button", @data - url = "House/Delete/@item.Id" })*@
+                            @*@Html.ActionLink("Book Now", "Book", new { id = item.Id })*@
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Add House", "Create")
+    </p>
     <table id="houses" class="table">
         <thead>
-            <tr class="titles">
+            <tr>
                 <th>
-                    Image
+                    @Html.DisplayNameFor(model => model.Title)
                 </th>
                 <th>
-                    Title
+                    @Html.DisplayNameFor(model => model.Description)
                 </th>
                 <th>
-                    Address
+                    @Html.DisplayNameFor(model => model.Region)
                 </th>
                 <th>
-                    Owner
+                    @Html.DisplayNameFor(model => model.Images)
                 </th>
-                <th>
-                    Owner's Email
-                </th>
-                <th>
-                    Availability Starts:
-                </th>
-                <th>
-                    Availability Ends:
-                </th>
-                <th></th>
             </tr>
         </thead>
-
         @foreach (var item in Model)
         {
             <tbody>
-                @if (Model.Count() == 0)
-                {
-                    <tr> <td colspan="3"> Records not found </td></tr>
-                }
                 <tr>
-                    <td>
-                        <img src="..\..\HouseImages\@item.ImageName" class="img-thumbnail" height=50 width=100 />
-                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Title)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Region.RegionName),<br />@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.AddressNumber)
+                        @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Owner.YourUserName)
+                        @Html.DisplayFor(modelItem => item.Region.RegionName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Owner.Email)
+                        <img src="..\..\HouseImages\@item.ImageName" class="img-thumbnail" height=50 width=100 />
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-outline-primary btn-sm", role = "button" })
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-outline-secondary btn-sm", role = "button" })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-danger btn-sm", role = "button" })
-                        @*@Html.ActionLink("Book Now", "Book", new { id = item.Id })*@
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Book Now", "Details", new { id = item.Id })
                     </td>
                 </tr>
             </tbody>
         }
     </table>
 }
-else
-{
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table id="houses" class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Region)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Images)
-            </th>
-        </tr>
-    </thead>
-    @foreach (var item in Model)
-            {
-    <tbody>
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Region.RegionName)
-            </td>
-            <td>
-                <img src="..\..\HouseImages\@item.ImageName" class="img-thumbnail" height=50 width=100 />
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Book Now", "Details", new { id = item.Id })
-            </td>
-        </tr>
-    </tbody>
-            }
-</table>
+
+<div class="container">
+    <!-- The Modal -->
+    <div class="modal" id="deleteHouseModal" data-url="">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete House</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Are you sure about deleting this Home Corner?
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger delete-house-button">Yes</button>
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">No</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @functions{
+        public string TokenHeaderValue()
+        {
+            string cookieToken, formToken;
+            AntiForgery.GetTokens(null, out cookieToken, out formToken);
+            return cookieToken + ":" + formToken;
+        }
+    }
+
+    <script>
+        var $deleteToggleButton = $('.show-delete-modal-button');
+        var $deleteHouseModal = $('#deleteHouseModal');
+
+        $(document).ready(function (event) {
+            $deleteToggleButton.on('click', function (event) {
+                event.preventDefault();
+                $deleteHouseModal.data('url', $(this).data('url'));
+                $deleteHouseModal.modal('show');
+            });
+
+            $('.delete-house-button').on('click', function (event) {
+                event.preventDefault();
+
+                var request = $.ajax({
+                    url: $deleteHouseModal.data('url'),
+                    method: 'POST',
+                    data: {
+                        '__RequestVerificationToken': '@TokenHeaderValue()'
+                    },
+                    dataType: 'json',
+
+                });
+                request.done(function (data, textStatus, jqXHR) {
+                    if (data.Status == 'ok') {
+                        alert('Deleted successfully.');
+                        location.reload();
+                    } else {
+                        alert(data.Error);
+                    }
+                });
+                request.fail(function (jqXHR, textStatus, errorThrown) {
+                    alert('Request failed: ' + textStatus);
+                });
+            });
+        });
+    </script>
 }

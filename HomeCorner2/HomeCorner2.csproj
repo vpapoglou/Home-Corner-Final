@@ -199,10 +199,6 @@
     <Compile Include="Migrations\201905052253337_UpdatedUploadImages.Designer.cs">
       <DependentUpon>201905052253337_UpdatedUploadImages.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905061120126_Admins.cs" />
-    <Compile Include="Migrations\201905061120126_Admins.Designer.cs">
-      <DependentUpon>201905061120126_Admins.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201905061314576_addRegions.cs" />
     <Compile Include="Migrations\201905061314576_addRegions.Designer.cs">
       <DependentUpon>201905061314576_addRegions.cs</DependentUpon>
@@ -347,6 +343,7 @@
     <Content Include="Views\Houses\Cancel.cshtml" />
     <Content Include="Views\Houses\Search.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Houses\HouseReservations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -364,9 +361,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905052253337_UpdatedUploadImages.resx">
       <DependentUpon>201905052253337_UpdatedUploadImages.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905061120126_Admins.resx">
-      <DependentUpon>201905061120126_Admins.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905061314576_addRegions.resx">
       <DependentUpon>201905061314576_addRegions.cs</DependentUpon>

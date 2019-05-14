@@ -96,19 +96,21 @@
             </dd>
 
             <dt>
-                @if (User.IsInRole("CanManageHouses"))
+                @if (User.IsInRole("CanManageHouses") || Model.House.OwnerId == User.Identity.GetUserId())
                 {
                     @*@Html.ActionLink("Back to List", "Index", new { @class = "btn btn-outline-light", role = "button" })*@
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.House.Id }, new { @class = "btn btn-outline-secondary mr-2", role = "button" })
-                    @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id }, new { @class = "btn btn-primary", role = "button" })
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.House.Id }, new { @class = "btn btn-sm btn-outline-secondary mr-2", role = "button" })
+                    @Html.ActionLink("Reservations", "HouseReservations", new { id = Model.House.Id }, new { @class = "btn btn-sm btn-outline-primary  mr-2", role = "button" })
+                    @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id }, new { @class = "btn btn-sm btn-primary", role = "button" })
+
                 }
                 else
                 {
                     @*@Html.ActionLink("Back to List", "Index", new { @class = "btn btn-outline-light", role = "button" })*@
                     @Html.ActionLink("Book Now", "Book", new { id = Model.House.Id }, new { @class = "btn btn-primary", role = "button" })
                     @*<button class="btn btn-dark" data-toggle="modal" data-target="#reservationModal"">
-                           Book Now!
-                        </button>*@
+               Book Now!
+            </button>*@
                 }
             </dt>
 
