@@ -29,6 +29,12 @@ namespace HomeCorner2.Controllers
             return View(allUsers);
         }
 
+        //public ActionResult UserProfile(string id)
+        //{
+        //    var userInfo = db.Users.Where(i => i.Id == id).ToList();
+        //    return View(userInfo);
+        //}
+
         [Authorize]
         public ActionResult Home()
         {

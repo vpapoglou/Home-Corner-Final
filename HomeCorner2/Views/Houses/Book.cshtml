@@ -5,77 +5,46 @@
     Layout = "~/Views/Shared/_LoggedInLayout.cshtml";
 }
 
+<hr />
+<h2 class="mt-2">Booking a Home Corner</h2>
+<hr />
 
 <div class="row mt-5">
-    <div class="col-lg-8">
-        <img class="rounded image-details" src="..\..\HouseImages\@Model.House.ImageName" alt="@Model.House.Title" />
+    <div class="col-lg-6">
+        <div class="row">
+            <img class="rounded image-booking" src="..\..\HouseImages\@Model.House.ImageName" alt="@Model.House.Title" />
+        </div>
     </div>
     <div class="col-lg-4">
-        <h4>@Html.DisplayFor(model => model.House.Title)</h4>
-        <hr />
-        <dl class="dl-horizontal">
+        @using (Html.BeginForm("Book", "Houses", FormMethod.Post, new
+        {
+            enctype = "multipart/form-data"
+        }))
+        {
 
-            @Html.Partial("_HousesDataTable", Model.House)
-
-            <dt>
-                Adress
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.House.Region.RegionName), @Html.DisplayFor(model => model.House.PostalCode)
-                <br />
-                @Html.DisplayFor(model => model.House.Address) @Html.DisplayFor(model => model.House.AddressNumber),
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.House.Features)
-            </dt>
-
-            @if (Model.House.Features == null)
-            {
-                <dd>No Features</dd>
-            }
-            else
-            {
-
-                foreach (var feature in Model.House.Features)
-                {
-                    <dd>
-                        @Html.DisplayFor(model => feature.Feature)
-                    </dd>
-                }
-            }
-
-
-            @using (Html.BeginForm("Book", "Houses", FormMethod.Post, new
-            {
-                enctype = "multipart/form-data"
-            }))
-            {
-
-                @Html.AntiForgeryToken()
-                <dt>
-                    Reservation
-                </dt>
-                <dt class="col-md-10">
-                    @Html.EditorFor(model => model.Reservation.StartDate, new { htmlAttributes = new { placeholder = "From", @class = "form-control", id = "StartDate" } })
-                    @Html.ValidationMessageFor(model => model.Reservation.StartDate, "", new { @class = "text-danger" })
-                </dt>
-                <dt class="col-md-10 mt-2">
-                    @Html.EditorFor(model => model.Reservation.EndDate, new { htmlAttributes = new { placeholder = "To", @class = "form-control", id = "EndDate" } })
-                    @Html.ValidationMessageFor(model => model.Reservation.EndDate, "", new { @class = "text-danger" })
-                </dt>
-
-                <dt>
-                    @Html.ActionLink("Back to List", "Index") |
-
-                    <button type="submit" class="btn btn-primary">Book Now</button>
-
-                </dt>
-            }
-            </dl>
+            @Html.AntiForgeryToken()
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Reservation.StartDate, new { htmlAttributes = new { placeholder = "From", @class = "form-control", id = "StartDate" } })
+                @Html.ValidationMessageFor(model => model.Reservation.StartDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-10 mt-2">
+                @Html.EditorFor(model => model.Reservation.EndDate, new { htmlAttributes = new { placeholder = "To", @class = "form-control", id = "EndDate" } })
+                @Html.ValidationMessageFor(model => model.Reservation.EndDate, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div class="ml-3">
+                Price/Night
+                <div>
+                    @Html.DisplayFor(model => model.House.Price)€
+                </div>
+            </div>
+            <div class="ml-3">
+                <button type="submit" class="btn primary-buttons">Book Now</button>
+            </div>
+        }
     </div>
 </div>
+
 @section Scripts {
 
     @Scripts.Render("~/bundles/jqueryval")

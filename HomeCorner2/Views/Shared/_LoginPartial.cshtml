@@ -8,16 +8,16 @@
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav navbar-custom-color">
 
             <li>@Html.ActionLink("Search A Corner", "Search", "Houses", null, new { @class = "btn text-white" })</li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="user-menu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Profile
+                    My Menu
                 </a>
-                <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                    @Html.ActionLink("Profile", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "btn text-white", title = "Manage" })
-                    <div class="dropdown-divider"></div>
+                <div class="dropdown-menu dropdown-custom-color" aria-labelledby="navbarDropdown">
+                    @*@Html.ActionLink("Profile", "UserProfile", "Home", new { id = User.Identity.GetUserId() }, htmlAttributes: new { @class = "btn text-white", title = "Manage" })
+                    <div class="dropdown-divider"></div>*@
                     @Html.ActionLink("My Reservations", "MyReservations", "Houses", null, new { @class = "btn text-white" })
                     <div class="dropdown-divider"></div>
                     @Html.ActionLink("My Houses", "MyHouses", "Houses", null, new { @class = "btn text-white" })
@@ -29,7 +29,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="admin-menu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Administration
                     </a>
-                    <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu dropdown-custom-color" aria-labelledby="navbarDropdown">
                         @Html.ActionLink("All Users", "Users", "Home", null, new { @class = "btn text-white" })
                         @Html.ActionLink("All Houses", "Index", "Houses", null, new { @class = "btn text-white", id = "all-houses-button" })
                         @Html.ActionLink("All Reservations", "Reservations", "Houses", null, new { @class = "btn text-white" })
@@ -43,7 +43,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn text-white" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn text-white" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn text-white navbar-custom-color" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn text-white navbar-custom-color" })</li>
     </ul>
 }

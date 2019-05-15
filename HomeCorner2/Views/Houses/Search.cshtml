@@ -7,7 +7,7 @@
 <div class="jumbotron mt-3">
     @using (Html.BeginForm("Search", "Houses", FormMethod.Get))
     {
-        <div class="d-flex justify-content-center">
+        //<div class="d-flex justify-content-center flex-sm-column">
             <div class="titles mr-2">Search Option:</div>
             <div class="form-check-inline">
                 <label class="form-check-label">
@@ -29,26 +29,26 @@
                     @Html.RadioButton("option", "Price", new { htmlAttributes = new { @class = "form-check-input" } }) Price
                 </label>
             </div>
-            <div class="form-check-inline">
-                <label class="form-check-label">
-                    @Html.RadioButton("option", "StartDate", new { htmlAttributes = new { @class = "form-check-input" } })Arrival Date
-                </label>
-            </div>
-            <div class="form-check-inline">
-                <label class="form-check-label">
-                    @Html.RadioButton("option", "EndDate", new { htmlAttributes = new { @class = "form-check-input" } }) Departure Date
-                </label>
-            </div>
-            <div class="form-check-inline">
-                <label class="form-check-label">
-                    @Html.RadioButton("option", "AllHouses", new { htmlAttributes = new { @class = "form-check-input" } }) All Home Corners
-                </label>
-            </div>
+       //</div>
+        <div class="form-check-inline">
+            <label class="form-check-label">
+                @Html.RadioButton("option", "StartDate", new { htmlAttributes = new { @class = "form-check-input" } })Arrival Date
+            </label>
+        </div>
+        <div class="form-check-inline">
+            <label class="form-check-label">
+                @Html.RadioButton("option", "EndDate", new { htmlAttributes = new { @class = "form-check-input" } }) Departure Date
+            </label>
+        </div>
+        <div class="form-check-inline">
+            <label class="form-check-label">
+                @Html.RadioButton("option", "AllHouses", new { htmlAttributes = new { @class = "form-check-input" } }) All Home Corners
+            </label>
         </div>
         <div class="form-check-inline d-flex justify-content-center">
             <label class="form-check-label">
                 @Html.TextBox("search")
-                <button type="submit" class="btn btn-dark" name="Search">Search</button>
+                <button type="submit" class="btn button-custom-color btn-sm" name="Search">Search</button>
             </label>
         </div>
 
@@ -74,7 +74,7 @@
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
                     <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
                     <p class="card-text">@Html.DisplayFor(modelItem => item.Price)€</p>
-                    <input type="button" class="btn btn-dark text-truncate mt-auto" value="More Details" onclick="redirectToDetails(@item.Id);" />
+                    <input type="button" class="btn button-custom-color text-truncate mt-auto" value="More Details" onclick="redirectToDetails(@item.Id);" />
                 </div>
             </div>
         </div>

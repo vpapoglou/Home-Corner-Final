@@ -2,7 +2,7 @@
     /*padding-top: 50px;
     padding-bottom: 20px;*/
     font-family: 'Quicksand', sans-serif;
-    /*background-color: #E6E2DD;*/
+    background-color: #F3F5F6;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -15,6 +15,10 @@
     background-image: url("../images/images.png");
     background-color:transparent !important;
 }*/
+
+.vertical-buttons {
+    vertical-align: middle;
+}
 
 .display-inline {
     display: inline;
@@ -42,9 +46,37 @@ textarea {
     padding-bottom: unset;
 }
 
-/*.navbar-color {
-    background-color: #373A36;
+.navbar-custom-color, .dropdown-custom-color {
+    background-color: #031927;
+    color: white;
+}
+
+/*.dropdown-custom-color,  {
+    background-color: #08415C;
 }*/
+
+.button-custom-color, .button-custom-color:hover {
+    background-color: #031927;
+    color: white;
+}
+
+.primary-buttons {
+    background-color: #2787BD;
+    color: white;
+}
+
+.navbar-brand-footer, .text-links {
+    color: #031927;
+}
+
+.danger-button {
+    background-color: #BD1E1E;
+    color: white;
+}
+
+.jumbotron, .email-form {
+    background-color: #C1CFD4;
+}
 
 .fa-facebook-square, .fa-twitter-square, .fa-linkedin, .fa-github-square {
     font-size: 1.5rem;
@@ -79,7 +111,12 @@ textarea {
     height: 90%;
 }
 
-.image-reservations img{
+.image-booking {
+    width: 50%;
+    height: 50%;
+}
+
+.image-reservations img {
     display: block;
     max-width: 230px;
     max-height: 95px;
@@ -117,4 +154,8 @@ textarea {
 
 .information-labels {
     font-weight: 700;
+}
+
+#login-modal-toggle-button{
+    cursor: pointer;
 }

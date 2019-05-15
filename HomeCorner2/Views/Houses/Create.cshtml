@@ -16,7 +16,7 @@
     @Html.AntiForgeryToken()
 
     //<div class="form-horizontal">
-    <h4>New House</h4>
+    <h4>New Home Corner</h4>
     <hr />
     <div class=" row">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-10 col-10">
@@ -106,8 +106,8 @@
 
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.House.ImageName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10 img-thumbnail">
+            <label class="control-label col-md-2 display-inline">Image</label>
+            <div class="col-md-10">
                 @Html.TextBoxFor(model => model.House.ImageData, "Image", new { @type = "file", id = "file", name = "file" })
                 @Html.ValidationMessageFor(model => model.House.ImageData, "", new { @class = "text-danger" })
             </div>
@@ -115,7 +115,7 @@
     </div>
     <div class="row form-group">
         <div class="col-lg-10 col-md-10">
-            <button type="submit" class="btn btn-dark btn-block" id="submit-create-house">Add</button>
+            <button type="submit" class="btn button-custom-color btn-block" id="submit-create-house">Add</button>
         </div>
     </div>
 }

@@ -26,6 +26,13 @@
 "Are you ready to explore your next destination? Let's start looking for a place for you to stay!"
 };
 }
+<div class="row mt-3 mb-4">
+    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-2 col-2"></div>
+    <div class="col-xl-8 col-lg-8 col-md-6 col-sm-8 col-8">
+        @Html.ActionLink("Book Now!", "Search", "Houses", new { area = "" }, new { InputType = "button", @class = "btn btn-block button-custom-color titles" })
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-2 col-2"></div>
+</div>
 <div class="jumbotron jumbotron-background mt-4">
     <div id="greetings-home-message">
         @greetings
@@ -47,7 +54,7 @@
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
                         <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
                         <p class="card-text">@Html.DisplayFor(modelItem => item.Price)€</p>
-                        <input type="button" class="btn btn-dark btn-block mt-auto" value="More Details" onclick="redirectToDetails(@item.Id);" />
+                        <input type="button" class="btn navbar-custom-color btn-block mt-auto" value="More Details" onclick="redirectToDetails(@item.Id);" />
                     </div>
                 </div>
             </div>
@@ -56,7 +63,7 @@
     <div class="row mt-3">
         <div class="col-xl-2 col-lg-2 col-md-3 col-sm-2 col-2"></div>
         <div class="col-xl-8 col-lg-8 col-md-6 col-sm-8 col-8">
-            @Html.ActionLink("Book Now!", "Search", "Houses", new { area = "" }, new { InputType = "button", @class = "btn btn-block btn-dark" })
+            @Html.ActionLink("Book Now!", "Search", "Houses", new { area = "" }, new { InputType = "button", @class = "btn btn-block button-custom-color titles" })
             @*<input type="button" class="btn btn-block btn-dark" value="Book Now!" onclick="@Html.ActionLink("AboutUs", "Home")" />*@
         </div>
         <div class="col-xl-2 col-lg-2 col-md-3 col-sm-2 col-2"></div>

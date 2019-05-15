@@ -12,7 +12,7 @@
 
 </head>
 <body id="main-body">
-    <nav class="navbar navbar-expand-xl navbar-expand-lg navbar-expand-md navbar-expand-sm navbar-dark bg-dark sticky-top ">
+    <nav class="navbar navbar-expand-xl navbar-expand-lg navbar-expand-md navbar-expand-sm sticky-top navbar-custom-color">
         <div class="container">
             @Html.ActionLink("HomeCorner", "Index", "Home", new { area = "" }, new { @class = "navbar-brand logo-font" })
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,12 +26,12 @@
                 </ul>
                 @*@Html.Partial("_LoginPartial")*@
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-dark" })</li>
+                    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn navbar-custom-color"})</li>
                     @*<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn text-white"})</li>*@
                     @*<button class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
                             Log in
                         </button>*@
-                    <li class="btn btn-dark" id="login-modal-toggle-button">Log in</li>
+                    <li class="btn button-custom-color navbar-custom-color" id="login-modal-toggle-button">Log in</li>
                 </ul>
             </div>
         </div>
@@ -43,7 +43,7 @@
             <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-8">
                     <div>
-                        @Html.ActionLink("HomeCorner", "Index", "Home", new { area = "" }, new { @class = "navbar-brand logo-font" })
+                        @Html.ActionLink("HomeCorner", "Index", "Home", new { area = "" }, new { @class = "navbar-brand navbar-brand-footer logo-font" })
                     </div>
                     <div class="text-center">
                         Our team will go the extra mile to analyze the particular project in detail, and offer a business solution that will meet your requirements.

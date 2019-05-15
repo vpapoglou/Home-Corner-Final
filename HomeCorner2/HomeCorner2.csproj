@@ -344,6 +344,7 @@
     <Content Include="Views\Houses\Search.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Houses\HouseReservations.cshtml" />
+    <Content Include="Views\Home\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

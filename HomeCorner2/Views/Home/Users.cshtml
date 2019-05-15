@@ -52,7 +52,8 @@
                 </td>
                 <td>
                     @*@Html.ActionLink("Details", "UserDetails", new { id = item.Id }) |*@
-                    <button class="btn btn-outline-danger delete-user-button" onclick="location.href='@Url.Action("DeleteUser", "Account", new { id = item.Id})'">Delete</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm show-delete-modal-button" data-url="@Url.Action("DeleteUser", "Account", new { id = item.Id}, Request.Url.Scheme)">Delete</button>
+                    @*<button class="btn btn-outline-danger delete-user-button" onclick="location.href='@Url.Action("DeleteUser", "Account", new { id = item.Id})'">Delete</button>*@
                     @*<button class="btn btn-danger delete-user-button" data-url="Account/Delete/DeleteUser/@item.Id">Delete</button>*@
                     @*<input type="button" value="Go Somewhere Else" onclick="location.href='@Url.Action("DeleteUser", "Account", new { id = item.Id})'" />*@
                 </td>
@@ -63,58 +64,85 @@
 
 
 
-<div class="modal fade" id="deleteUserModal" data-url="">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title modal-font-title">Delete User</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+<div class="container">
+    <!-- The Modal -->
+    <div class="modal" id="deleteUserModal" data-url="">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-            <!-- Modal body -->
-            <div class="modal-body">
-                <h3>Are you sure?</h3>
-                <button type="button" class="btn btn-danger" id="delete-user-confirm">YES</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title titles">Delete User</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Are you sure about deleting this User?
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn danger-button delete-user-button">Yes</button>
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">No</button>
+                </div>
 
             </div>
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
         </div>
     </div>
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+
+    @functions{
+        public string TokenHeaderValue()
+        {
+            string cookieToken, formToken;
+            AntiForgery.GetTokens(null, out cookieToken, out formToken);
+            return cookieToken + ":" + formToken;
+        }
+    }
 
     <script>
-        var $deleteUserButton = $('.delete-user-button');
+        var $deleteToggleButton = $('.show-delete-modal-button');
         var $deleteUserModal = $('#deleteUserModal');
-        var $deleteConfirm = $deleteUserModal.find('#delete-user-confirm');
 
         $(document).ready(function (event) {
-
-            $deleteUserButton.on('click', function (event) {
-                console.log($(this).data('url'));
+            $deleteToggleButton.on('click', function(event) {
+                event.preventDefault();
                 $deleteUserModal.data('url', $(this).data('url'));
                 $deleteUserModal.modal('show');
             });
 
-            $deleteUserModal.on('hidden.bs.modal', function (event) {
-                $deleteUserModal.data('url', '');
-            });
+            $('.delete-user-button').on('click', function (event)
+    {
+                event.preventDefault();
 
-            $deleteConfirm.on('click', function (event) {
-                console.log($deleteUserModal.data('url'));
                 var request = $.ajax({
                     url: $deleteUserModal.data('url'),
                     method: 'POST',
-                    dataType: 'json'
+                    data:
+                    {
+                        '__RequestVerificationToken': '@TokenHeaderValue()'
+                    },
+                    dataType: 'json',
+
+                });
+                request.done(function(data, textStatus, jqXHR) {
+                    if (data.Status == 'ok')
+                    {
+                        alert('Deleted successfully.');
+                        location.reload();
+                    }
+                    else
+                    {
+                        alert(data.Error);
+                    }
+                });
+                request.fail(function(jqXHR, textStatus, errorThrown) {
+                    alert('Request failed: ' + textStatus);
                 });
             });
+        });
     </script>
 }

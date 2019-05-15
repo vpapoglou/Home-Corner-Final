@@ -8,8 +8,7 @@
 <div class="jumbotron mt-3">
     @using (Html.BeginForm("Index", "Houses", FormMethod.Get))
     {
-        <div class="d-flex justify-content-center">
-            <div class="titles mr-2">Search Option:</div>
+        <div class="titles mr-2">Search Option:</div>
             <div class="form-check-inline">
                 <label class="form-check-label">
                     @Html.RadioButton("option", "Region", new { htmlAttributes = new { @class = "form-check-input" } })Region
@@ -45,11 +44,10 @@
                     @Html.RadioButton("option", "AllHouses", new { htmlAttributes = new { @class = "form-check-input" } }) All Home Corners
                 </label>
             </div>
-        </div>
         <div class="form-check-inline d-flex justify-content-center">
             <label class="form-check-label">
                 @Html.TextBox("search")
-                <button type="submit" class="btn btn-dark" name="Search">Search</button>
+                <button type="submit" class="btn button-custom-color btn-sm" name="Search">Search</button>
             </label>
         </div>
 
@@ -130,11 +128,13 @@
                             @Html.DisplayFor(modelItem => item.EndDate)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-outline-primary btn-sm", role = "button" })
-                            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-outline-secondary btn-sm", role = "button" })
-                            <button type="button" class="btn btn-outline-danger btn-sm show-delete-modal-button" data-url="Delete/@item.Id">Delete</button>
-                            @*@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-danger btn-sm delete-toggle-button", role = "button", @data - url = "House/Delete/@item.Id" })*@
-                            @*@Html.ActionLink("Book Now", "Book", new { id = item.Id })*@
+                            <div class="vertical-buttons">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-outline-primary btn-sm", role = "button" })
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-outline-secondary btn-sm", role = "button" })
+                                <button type="button" class="btn btn-outline-danger btn-sm show-delete-modal-button" data-url="Houses/Delete/@item.Id">Delete</button>
+                                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-danger btn-sm delete-toggle-button", role = "button", @data - url = "House/Delete/@item.Id" })*@
+                                @*@Html.ActionLink("Book Now", "Book", new { id = item.Id })*@
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -209,7 +209,7 @@ else
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger delete-house-button">Yes</button>
+                    <button type="button" class="btn danger-button delete-house-button">Yes</button>
                     <button type="button" class="btn btn-outline-dark" data-dismiss="modal">No</button>
                 </div>
 

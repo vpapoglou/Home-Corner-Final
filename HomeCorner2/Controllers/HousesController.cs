@@ -24,6 +24,7 @@ namespace HomeCorner.Controllers
 
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Reservations()
         {
             var reservations = db.Reservations.Include(i => i.House).Include(j => j.User).ToList();
@@ -98,7 +99,7 @@ namespace HomeCorner.Controllers
                 if ((givenStartDate < houseStartDate) || (givenEndDate > houseEndDate))
                 //if ((givenStartDate.Date> houseStartDate.Date) || (givenEndDate.Date < houseEndDate.Date))
                 {
-                    return RedirectToAction("Index", new { message = "Error" });
+                    return RedirectToAction("Search", new { message = "Error" });
                 }
                 //else
                 //{
@@ -108,7 +109,7 @@ namespace HomeCorner.Controllers
                     if (((givenStartDate == reservations.StartDate) && (givenEndDate == reservations.StartDate)) || ((givenStartDate < reservations.StartDate) && (givenEndDate < reservations.StartDate)) || ((givenStartDate < reservations.StartDate) && (givenEndDate > reservations.StartDate)) || ((givenStartDate > reservations.StartDate) && (givenEndDate < reservations.StartDate)) || ((givenStartDate > reservations.StartDate) && (givenStartDate < reservations.EndDate)))
                     //if ((givenStartDate > reservations.StartDate) || (givenEndDate < reservations.EndDate))
                     {
-                        return RedirectToAction("Index", new { message = "Error" });
+                        return RedirectToAction("Search", new { message = "Error" });
                     }
                 }
                 //}
@@ -118,7 +119,7 @@ namespace HomeCorner.Controllers
                 db.Reservations.Add(reservationToAdd.Reservation);
                 db.SaveChanges();
 
-                return RedirectToAction("Index", new { message = "Success" });
+                return RedirectToAction("MyReservations", new { message = "Success" });
             }
             else
             {
@@ -168,6 +169,7 @@ namespace HomeCorner.Controllers
         }
 
         // GET: Houses
+        [Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Index(string message, string option, string search)
         {
             var AllHouses = db.Houses.Include(i => i.Owner).ToList();
@@ -298,7 +300,7 @@ namespace HomeCorner.Controllers
 
                 db.Houses.Add(houseToAdd.House);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { message = "Success" });
+                return RedirectToAction("MyHouses", new { message = "Success" });
                 //return RedirectToAction("UploadImages");
             }
 
@@ -337,7 +339,7 @@ namespace HomeCorner.Controllers
         }
 
         // GET: Houses/Edit/5
-        [Authorize(Roles = RoleName.CanManageHouses)]
+        //[Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -375,7 +377,7 @@ namespace HomeCorner.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = RoleName.CanManageHouses)]
+        //[Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Edit(HousesViewModel housesViewModel)
         {
             var allowedExtensions = new[]{
@@ -414,7 +416,7 @@ namespace HomeCorner.Controllers
                     }
                     db.Entry(houseToAdd.House).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index", new { message = "Success" });
+                    return RedirectToAction("MyHouses", new { message = "Success" });
                 }
 
             }
@@ -425,7 +427,7 @@ namespace HomeCorner.Controllers
         }
 
         // GET: Houses/Delete/5
-        [Authorize(Roles = RoleName.CanManageHouses)]
+        //[Authorize(Roles = RoleName.CanManageHouses)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -444,13 +446,21 @@ namespace HomeCorner.Controllers
         // POST: Houses/Delete/5 
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
-        [Authorize(Roles = RoleName.CanManageHouses)]
+        //[Authorize(Roles = RoleName.CanManageHouses)]
         public JsonResult DeleteConfirmed(int id)
         {
             House house = db.Houses.Find(id);
             if (house == null)
             {
                 return Json(new { Status = "error", Error = "House not found" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var HouseReservations = db.Reservations.Count(i => i.House.Id == id);
+                if (HouseReservations > 0)
+                {
+                    return Json(new { Status = "error", Error = "House can't be deleted" }, JsonRequestBehavior.AllowGet);
+                }
             }
             db.Houses.Remove(house);
             db.SaveChanges();
@@ -467,20 +477,24 @@ namespace HomeCorner.Controllers
             Reservation reservation = db.Reservations.Find(id);
             if (reservation == null)
             {
-                return HttpNotFound();
+                return Json(new { Status = "error", Error = "Reservation not found" }, JsonRequestBehavior.AllowGet);
             }
-            return View(reservation);
+            return Json(new { Status = "ok" }, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Reservations/Cancel/5 
         [HttpPost, ActionName("Cancel")]
-        [ValidateAntiForgeryToken]
-        public ActionResult CancelConfirmed(int id)
+        //[ValidateAntiForgeryToken]
+        public JsonResult CancelConfirmed(int id)
         {
             Reservation reservation = db.Reservations.Find(id);
+            if (reservation == null)
+            {
+                return Json(new { Status = "error", Error = "Reservation not found" }, JsonRequestBehavior.AllowGet);
+            }
             db.Reservations.Remove(reservation);
             db.SaveChanges();
-            return RedirectToAction("Index", new { message = "Success" });
+            return Json(new { Status = "ok" }, JsonRequestBehavior.AllowGet);
         }
 
 

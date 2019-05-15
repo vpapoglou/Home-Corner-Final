@@ -17,6 +17,7 @@ namespace HomeCorner2.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -94,17 +95,30 @@ namespace HomeCorner2.Controllers
         }
 
         //GET: /Home/DeleteUser/5
-        public ActionResult DeleteUser(string id)
+        [Authorize(Roles = RoleName.CanManageHouses)]
+        public JsonResult DeleteUser(string id)
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return Json(new { Status = "error", Error = "Error" }, JsonRequestBehavior.AllowGet);
             }
             var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
             var manager = new UserManager<ApplicationUser>(store);
             var user = manager.FindById(id);
+            if (user == null)
+            {
+                return Json(new { Status = "error", Error = "User not found" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var userHouses = db.Houses.Count(i => i.OwnerId == id);
+                if (userHouses > 0)
+                {
+                    return Json(new { Status = "error", Error = "User can't be deleted" }, JsonRequestBehavior.AllowGet);
+                }
+            }
             var deleteUser = manager.Delete(user);
-            return View("Users");
+            return Json(new { Status = "ok" }, JsonRequestBehavior.AllowGet);
         }
 
         
