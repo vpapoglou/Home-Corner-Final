@@ -132,7 +132,7 @@
         $('#StartDate').datepicker({
             uiLibrary: 'bootstrap4',
             iconsLibrary: 'fontawesome',
-            //format: 'dd-mm-yyyy',
+            format: 'dd-mm-yyyy',
             minDate: today,
             maxDate: function () {
                 return $('#EndDate').val();
@@ -141,7 +141,7 @@
         $('#EndDate').datepicker({
             uiLibrary: 'bootstrap4',
             iconsLibrary: 'fontawesome',
-            //format: 'dd-mm-yyyy',
+            format: 'dd-mm-yyyy',
             minDate: function () {
                 return $('#StartDate').val();
             }

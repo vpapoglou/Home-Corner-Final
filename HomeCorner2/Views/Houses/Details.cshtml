@@ -12,8 +12,11 @@
             <img class="rounded image-details" src="..\..\HouseImages\@Model.House.ImageName" alt="@Model.House.Title" />
         </div>
         <div class="row mt-3">
-            <div class="img-thumbnail" id="googleMap" style="width:90%;height:360px;"></div>
+            <input id="house-address" type="hidden" value="@Model.House.Address @Model.House.AddressNumber, @Model.House.PostalCode, @Model.House.Region.RegionName">
+            @*<div class="img-thumbnail" id="googleMap" style="width:90%;height:360px;"></div>*@
         </div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=******0&callback=initializeMap"></script>
+
     </div>
     <div class="col-lg-3">
         <h4>@Html.DisplayFor(model => model.House.Title)</h4>
@@ -151,21 +154,33 @@
 
 @section Scripts {
     <script>
-        function initMap() {
-            var homeCornerLatLng = { lat: 40.6374681, lng: 22.9346953 };
-            var map = new google.maps.Map(document.getElementById('googleMap'), {
-                zoom: 6,
-                center: homeCornerLatLng
-            });
-            var marker = new google.maps.Marker({
-                position: homeCornerLatLng,
-                map: map,
-                animation: google.maps.Animation.DROP,
-                title: 'Home Corner Offices'
+        //function initializeMap() {
+        //    geocoder = new google.maps.Geocoder();
+        //    var latlng = new google.maps.LatLng(-34.397, 150.644);
+        //    var mapOptions = {
+        //        zoom: 8,
+        //        center: latlng
+        //    }
+        //    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        //}
+
+        function initializeMap() {
+            var geocoder = new google.maps.Geocoder();
+            var address = document.getElementById('house-address').value;
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                console.log(results);
+                if (status == 'OK') {
+                    //map.setCenter(results[0].geometry.location);
+                    //var marker = new google.maps.Marker({
+                    //    map: map,
+                    //    position: results[0].geometry.location
+                    //});
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
             });
         }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=********&callback=initMap"></script>
 
     @functions{
         public string TokenHeaderValue()
