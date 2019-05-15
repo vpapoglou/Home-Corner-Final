@@ -54,10 +54,94 @@
                         @Html.DisplayFor(modelItem => item.User.Email)
                     </td>
                     <td>
-                        @Html.ActionLink("Cancel", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-danger", role = "button" })
+                        <button type="button" class="btn btn-outline-danger btn-sm show-delete-modal-button" data-url="@Url.Action("Cancel", "Houses", new { id = item.Id}, Request.Url.Scheme)">Delete</button>
                     </td>
                 </tr>
             </tbody>
         }
     </table>
 </div>
+
+<div class="container">
+    <!-- The Modal -->
+    <div class="modal" id="deleteReservationModal" data-url="">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Reservation</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Are you sure about canceling this reservation?
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn danger-button delete-reservation-button">Yes</button>
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">No</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    @functions{
+        public string TokenHeaderValue()
+        {
+            string cookieToken, formToken;
+            AntiForgery.GetTokens(null, out cookieToken, out formToken);
+            return cookieToken + ":" + formToken;
+        }
+    }
+
+    <script>
+        var $deleteToggleButton = $('.show-delete-modal-button');
+        var $deleteReservationModal = $('#deleteReservationModal');
+
+        $(document).ready(function (event) {
+            $deleteToggleButton.on('click', function(event) {
+                event.preventDefault();
+                $deleteReservationModal.data('url', $(this).data('url'));
+                $deleteReservationModal.modal('show');
+            });
+
+            $('.delete-reservation-button').on('click', function (event)
+    {
+                event.preventDefault();
+
+                var request = $.ajax({
+                    url: $deleteReservationModal.data('url'),
+                    method: 'POST',
+                    data:
+                    {
+                        '__RequestVerificationToken': '@TokenHeaderValue()'
+                    },
+                    dataType: 'json',
+
+                });
+                request.done(function(data, textStatus, jqXHR) {
+                    if (data.Status == 'ok')
+                    {
+                        alert('Canceled successfully.');
+                        location.reload();
+                    }
+                    else
+                    {
+                        alert(data.Error);
+                    }
+                });
+                request.fail(function(jqXHR, textStatus, errorThrown) {
+                    alert('Request failed: ' + textStatus);
+                });
+            });
+        });
+    </script>
+}
+
