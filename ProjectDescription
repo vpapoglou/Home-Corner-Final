@@ -1,0 +1,46 @@
+A new Vacation Rental platform for Northern Greece on the Web.   Owners of vacation homes and apartments can list their properties and the available dates for rental, and vacationers can search the platform, find a desired place, and book it. 
+
+AUTHENTICATION
+•	Users need an account and cannot use the application if they are not authenticated
+o	Unauthenticated users should only see information about what the site is all about, and the UI to Log In / Sign Up
+•	There are 2 types of users:
+o	Owners
+o	Renters (customers)
+
+DATABASE DESIGN
+o	Title (a short text to appear in search result and as the title in the property listing)
+o	Description (a longer text, possibly in HTML format, to describe the property in more detail in the property listing)
+o	Location (minimum requirement is a list of locations)
+o	Maximum Occupancy (number of people that can stay)
+o	Photo (1 main photo to be used as the profile picture of the property)
+o	Owner (minimum requirement is just to display the name of the owner)
+o	Price Per Night
+o	a list of date ranges that the property is available for rental (the owner might want to keep some days unavailable for maintenance or for his own usage)
+
+•	Reservations (Bookings):
+o	Property
+o	Renter (User)
+o	Start Date
+o	End Date
+o	Number of Occupants
+o	Date of Booking
+o	Customer Comments
+o	Price Per Night Charged
+o	Cancellation of Reservation (you will need to keep the “status” of the reservation – Active / Cancelled)
+
+FUNCTIONALITY
+•	Sign Up / Log In Page
+
+•	Owners
+o	View a list of «My Properties»
+o	View the details of one Property
+	Ability to create a new property
+	Ability to edit the characteristics of a property
+	Ability to completely remove a property (if it has not been used in reservations) or make it “Inactive”/”Hidden” from the search functionality
+o	View a list of «Reservations» for all the properties of the owner
+
+•	Renters
+o	Search functionality / Search Results
+o	View the details of one Property
+	Ability to make a reservation on available dates
+o	View a list of “My Reservations”
